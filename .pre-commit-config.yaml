@@ -1,0 +1,30 @@
+repos:
+  - repo: local
+    hooks:
+      - id: email-check
+        name: Check Corporate Email
+        entry: bash scripts/check-email.sh
+        language: system
+        pass_filenames: false
+        stages: [commit]
+
+      - id: typecheck
+        name: TypeScript Type Check
+        entry: npm run typecheck
+        language: system
+        pass_filenames: false
+        types: [ts, tsx]
+
+      - id: eslint
+        name: ESLint
+        entry: npm run lint
+        language: system
+        pass_filenames: false
+        types: [ts, tsx]
+
+      - id: prettier
+        name: Prettier Format Check
+        entry: npm run format:check
+        language: system
+        pass_filenames: false
+        types: [ts, tsx, css]
