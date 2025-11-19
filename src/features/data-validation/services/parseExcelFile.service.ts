@@ -16,11 +16,11 @@ const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
       if (result instanceof ArrayBuffer) {
         resolve(result)
       } else {
-        reject(new Error('Failed to read file as ArrayBuffer'))
+        reject(new Error('Fallo al leer el archivo como ArrayBuffer'))
       }
     }
     reader.onerror = () => {
-      reject(new Error('Error reading file'))
+      reject(new Error('Error leyendo el archivo'))
     }
     reader.readAsArrayBuffer(file)
   })
@@ -35,13 +35,13 @@ export const parseExcelFile = async (file: File): Promise<ParsedExcelData> => {
 
     if (!sheetNames.includes(SHEET_NAMES.MAIN)) {
       throw new Error(
-        `Required sheet "${SHEET_NAMES.MAIN}" not found in Excel file`
+        `La hoja requerida "${SHEET_NAMES.MAIN}" no fue encontrada en el archivo Excel`
       )
     }
 
     if (!sheetNames.includes(SHEET_NAMES.VALIDATION)) {
       throw new Error(
-        `Required sheet "${SHEET_NAMES.VALIDATION}" not found in Excel file`
+        `La hoja requerida: "${SHEET_NAMES.VALIDATION}" no fue encontrada en el archivo Excel`
       )
     }
 
@@ -49,7 +49,7 @@ export const parseExcelFile = async (file: File): Promise<ParsedExcelData> => {
     for (const [, sheetName] of hazardEntries) {
       if (!sheetNames.includes(sheetName)) {
         throw new Error(
-          `Required hazard sheet "${sheetName}" not found in Excel file`
+          `La hoja de peligros requerida "${sheetName}" no fue encontrada en el archivo Excel`
         )
       }
     }
@@ -102,8 +102,8 @@ export const parseExcelFile = async (file: File): Promise<ParsedExcelData> => {
     }
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(`Failed to parse Excel file: ${error.message}`)
+      throw new Error(`Error al parsear el archivo Excel: ${error.message}`)
     }
-    throw new Error('Failed to parse Excel file: Unknown error')
+    throw new Error('Error al parsear el archivo Excel: Error desconocido')
   }
 }
