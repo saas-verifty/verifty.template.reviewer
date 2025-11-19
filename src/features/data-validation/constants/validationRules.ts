@@ -6,9 +6,9 @@ export const HAZARD_TYPES = [
   'Biomecánico',
   'Condiciones de Seguridad',
   'Fenómenos naturales',
-] as const;
+] as const
 
-export type HazardType = (typeof HAZARD_TYPES)[number];
+export type HazardType = (typeof HAZARD_TYPES)[number]
 
 export const VALIDATION_LIST_FIELDS = {
   frecuencia: 'frecuencia',
@@ -18,20 +18,20 @@ export const VALIDATION_LIST_FIELDS = {
   nivel_deficiencia_ND: 'nivel_deficiencia_ND',
   nivel_exposicion_NE: 'nivel_exposicion_NE',
   valor_consecuencia_NC: 'valor_consecuencia_NC',
-} as const;
+} as const
 
 export const NUMERIC_FIELDS = [
   'nivel_deficiencia_ND',
   'nivel_exposicion_NE',
   'valor_consecuencia_NC',
-] as const;
+] as const
 
 export const HAZARD_CATALOG_FIELDS = {
   peligro: 'peligro',
   descripcion_peligro: 'descripcion_peligro',
   descripcion_especifica_peligro: 'descripcion_especifica_peligro',
-  consecuencia_efecto_posible: 'Cconsecuencia_efecto_posible',
-} as const;
+  consecuencia_efecto_posible: 'consecuencia_efecto_posible',
+} as const
 
 export const SHEET_NAMES = {
   MAIN: 'Plantilla de Carga',
@@ -45,4 +45,4 @@ export const SHEET_NAMES = {
     CONDICIONES_SEGURIDAD: 'Condiciones de Seguridad',
     FENOMENOS_NATURALES: 'Fenómenos naturales',
   },
-} as const;
+} as const
