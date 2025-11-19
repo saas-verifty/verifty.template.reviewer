@@ -65,5 +65,9 @@ export default function useTableData() {
     )
   }
 
-  return { table, initializeTable, updateCell }
+  const clearTable = () => {
+    setTable([])
+  }
+
+  return { table, initializeTable, updateCell, clearTable }
 }
