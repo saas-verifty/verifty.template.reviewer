@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { ParsedExcelData } from '../types/excel.types'
 import { CellData, RowData, TableData } from '../types/table.types'
 
-export default function useTableData(data: ParsedExcelData) {
+export default function useTableData() {
   const [table, setTable] = useState<TableData>([])
 
-  const initializeTable = () => {
+  const initializeTable = (data: ParsedExcelData) => {
     if (!data) return
 
     const headers = data.mainSheet.headers

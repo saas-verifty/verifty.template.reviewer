@@ -1,27 +1,38 @@
-import { FileUploader } from '../components/FileUploader'
+import { useEffect } from 'react'
+
 import useFileUpload from '../hooks/useFileUpload'
+import useTableData from '../hooks/useTableData'
+
+import { FileUploader } from '../components/FileUploader'
+import { DataTable } from '../components/DataTable'
 
 export default function UploadPage() {
-  const { file, data, handleFile, loading, error, clear } = useFileUpload()
+  const { file, data, handleFile, loading, error } = useFileUpload()
+  const { table, initializeTable, updateCell } = useTableData()
+
+  useEffect(() => {
+    if (data) initializeTable(data)
+  }, [data])
 
   return (
     <div>
-      <h1>Subir Excel</h1>
+      <h1>{data ? 'Datos Cargados' : 'Subir Excel'}</h1>
+      {loading && <p>Cargando...</p>}
       {!data && (
         <>
-          <FileUploader
-            onFileSelected={(file: File) => handleFile(file)}
-            disable={loading}
-          />
+          <FileUploader onFileSelected={handleFile} disable={loading} />
           {error && <p style={{ color: 'red' }}>{error}</p>}
         </>
       )}
-      {loading && <p>Cargando...</p>}
       {data && (
-        <div>
-          {file && <p>Archivo seleccionado: {file.name}</p>}
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
+        <>
+          <h2>Nombre del Archivo: {file?.name}</h2>
+          <DataTable
+            table={table}
+            headers={data.mainSheet.headers}
+            onChange={updateCell}
+          />
+        </>
       )}
     </div>
   )
