@@ -11,7 +11,7 @@ export interface CellData {
 export interface RowData {
   rowIndex: number
   cells: { [ColumnName: string]: CellData }
-  hasErrors: boolean
+  hasError: boolean
   isEdited: boolean
 }
 
