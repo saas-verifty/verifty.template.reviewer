@@ -126,54 +126,70 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="p-6">
-      {alert && (
-        <div className="mb-4">
-          <Alert
-            type={alert.type}
-            message={alert.message}
-            onClose={() => setAlert(null)}
-          />
-        </div>
-      )}
-      <h1 className="text-2xl font-semibold text-black mb-6">
-        {data ? 'Datos Cargados' : 'Subir Excel'}
-      </h1>
-      {loading && <Loader message="Procesando archivo..." />}
-      {!loading && !data && (
-        <>
-          <FileUploader onFileSelected={handleFile} disable={loading} />
-          {error && <p className="text-fg-danger mt-2">{error}</p>}
-        </>
-      )}
-      {data && (
-        <>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg text-body">Archivo: {file?.name}</h2>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {alert && (
+          <div className="mb-6">
+            <Alert
+              type={alert.type}
+              message={alert.message}
+              onClose={() => setAlert(null)}
+            />
           </div>
-          <ErrorSummary table={table} />
-          <DataTable
-            table={table}
-            headers={data.mainSheet.headers}
-            onChange={updateCell}
-            catalogData={parsedData}
-          />
-          <ActionButtons
-            onSubmit={handleSubmit}
-            onCancel={handleCancel}
-            loading={loading || isSubmitting}
-            hasErrors={hasErrors}
-          />
-        </>
-      )}
+        )}
 
-      <ConfirmationModal
-        isOpen={isModalOpen}
-        onConfirm={handleConfirmSubmit}
-        onCancel={() => setIsModalOpen(false)}
-        table={table}
-        loading={isSubmitting}
-      />
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold text-black mb-2">
+            {data ? 'Revisión de datos' : 'Carga masiva IPEVR'}
+          </h1>
+          <p className="text-body">
+            {data
+              ? 'Revisa y edita los datos antes de enviar'
+              : 'Un espacio seguro para subir y validar tus archivos Excel de IPEVR'}
+          </p>
+        </div>
+        {loading && <Loader message="Procesando archivo..." />}
+        {!loading && !data && (
+          <div className="flex flex-col items-center justify-center">
+            <FileUploader onFileSelected={handleFile} disable={loading} />
+            {error && <p className="text-fg-danger mt-2">{error}</p>}
+          </div>
+        )}
+        {data && (
+          <div className="bg-white rounded-lg border border-bg-gray p-6">
+            <div className="mb-4">
+              <div className="flex items-center gap-2 text-sm text-body-subtle mb-4">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                  <polyline points="13 2 13 9 20 9" />
+                </svg>
+                <span>{file?.name}</span>
+              </div>
+            </div>
+            <ErrorSummary table={table} />
+            <DataTable
+              table={table}
+              headers={data.mainSheet.headers}
+              onChange={updateCell}
+              catalogData={parsedData}
+            />
+            <ActionButtons
+              onSubmit={handleSubmit}
+              onCancel={handleCancel}
+              loading={loading || isSubmitting}
+              hasErrors={hasErrors}
+            />
+          </div>
+        )}
+
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onConfirm={handleConfirmSubmit}
+          onCancel={() => setIsModalOpen(false)}
+          table={table}
+          loading={isSubmitting}
+        />
+      </div>
     </div>
   )
 }
