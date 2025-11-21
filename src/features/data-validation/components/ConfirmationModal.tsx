@@ -69,13 +69,22 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
             )}
           </p>
 
+          {loading && (
+            <div className="w-full mb-4">
+              <div className="flex items-center justify-center gap-3 py-2">
+                <div className="w-5 h-5 border-2 border-bg-purple border-t-transparent rounded-full animate-spin"></div>
+                <span className="text-body text-sm">Procesando...</span>
+              </div>
+            </div>
+          )}
+
           <div className="flex gap-3 w-full">
             <button
               onClick={onConfirm}
               disabled={loading}
               className="flex-1 px-4 py-2.5 bg-bg-purple text-white rounded-lg font-medium cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              {loading ? 'Enviando...' : 'Confirmar'}
+              Confirmar
             </button>
             <button
               onClick={onCancel}
