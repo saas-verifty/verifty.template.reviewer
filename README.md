@@ -1,200 +1,269 @@
-# Verifty Template Reviewer
+# Verifty Template Reviewer - IPEVR Bulk Upload
 
-A modern React + TypeScript template project with comprehensive development tooling, testing infrastructure, and CI/CD automation.
+Sistema de carga masiva y validación de archivos Excel para IPEVR (Identificación de Peligros, Evaluación y Valoración de Riesgos).
 
-## Features
+## 🎯 Características Principales
 
-- **React 18** with TypeScript
-- **Vite** for fast development and optimized builds
-- **Feature-based architecture** for scalability
-- **ESLint & Prettier** for code quality
-- **Jest & React Testing Library** for testing
-- **GitHub Actions** CI/CD pipeline
-- **Pre-commit hooks** with Husky and lint-staged
-- **Corporate email validation** for governance
-- **API client** with Axios interceptors
+### Funcionalidades
 
-## Getting Started
+- **Carga de archivos Excel (.xlsx, .xls)** con validación automática
+- **Tabla editable interactiva** estilo Excel con validación en tiempo real
+- **Validación de datos** según catálogos y reglas de negocio
+- **Selects inteligentes** con búsqueda y filtrado en cascada para peligros
+- **Generación de JSON** con estructura jerárquica (proceso → actividad → subactividad → peligros)
+- **Integración con AWS S3** para subida de archivos (configurable)
+- **Feature Flags** para habilitar/deshabilitar funcionalidades sin redesplegar
 
-### Prerequisites
+### Stack Técnico
+
+- **React 18** con TypeScript
+- **Vite** para desarrollo rápido
+- **Tailwind CSS** con sistema de diseño personalizado
+- **AWS SDK v3** para S3
+- **ExcelJS** para procesamiento de archivos
+- **Feature-based architecture**
+- **Trunk-Based Development** con Feature Flags
+
+## 🚀 Inicio Rápido
+
+### Prerequisitos
 
 - Node.js >= 18.0.0
 - npm >= 9.0.0
+- Git configurado con email @verifty.com
 
-### Installation
+### Instalación
 
 ```bash
-# Clone the repository
+# 1. Clonar el repositorio
 git clone <repository-url>
 cd verifty.template.reviewer
 
-# Install dependencies
+# 2. Configurar email corporativo (REQUERIDO)
+git config user.email tu.nombre@verifty.com
+
+# 3. Instalar dependencias
 npm install
 
-# Set up pre-commit hooks
+# 4. Configurar pre-commit hooks
 npm run prepare
+
+# 5. Copiar y configurar variables de entorno
+cp .env.example .env
+# Editar .env con tus valores
 ```
 
-### Configure Git Email (Required)
+### Configuración de Variables de Entorno
 
-This project requires commits to use a @verifty.com email address:
+Edita el archivo `.env`:
 
 ```bash
-git config user.email your.name@verifty.com
+# Feature Flags
+VITE_FEATURE_BULK_UPLOAD_ENABLED=true  # Habilita/deshabilita la funcionalidad
+VITE_AWS_UPLOAD_ENABLED=false          # false = descarga local, true = sube a S3
+
+# AWS S3 (opcional, solo si VITE_AWS_UPLOAD_ENABLED=true)
+VITE_AWS_REGION=us-east-1
+VITE_AWS_ACCESS_KEY_ID=tu_access_key
+VITE_AWS_SECRET_ACCESS_KEY=tu_secret_key
+VITE_S3_BUCKET_NAME=tu-bucket-name
 ```
 
-## Available Scripts
-
-### Development
+### Ejecutar en Desarrollo
 
 ```bash
-# Start development server (http://localhost:3000)
 npm run dev
 ```
 
-### Building
+La aplicación estará disponible en: http://localhost:5173
+
+## 📋 Cómo Usar la Aplicación
+
+### 1. Preparar el Archivo Excel
+
+El archivo debe tener la siguiente estructura:
+
+**Hojas requeridas:**
+
+- `Main` - Datos principales de IPEVR
+- `Validation Lists` - Listas de validación (frecuencia, cargo, áreas, etc.)
+- `Catalogo de Peligros` - Catálogos de peligros por tipo
+
+**Columnas de la hoja Main:**
+
+- proceso, actividad, subactividad
+- frecuencia, personal_involucrado, cargo, area_empresa
+- peligro, descripcion_peligro, descripcion_especifica_peligro, consecuencia_efecto_posible
+- controles_existentes_fuente, controles_existentes_medio, controles_existentes_individuo
+- nivel_deficiencia_ND, nivel_exposicion_NE, valor_consecuencia_NC
+
+### 2. Subir y Validar
+
+1. Haz clic en "Buscar archivo" o arrastra el Excel
+2. El sistema procesará y validará automáticamente
+3. Verás un resumen de errores (si los hay)
+4. La tabla mostrará:
+   - ✅ Celdas válidas en gris
+   - ⚠️ Celdas con error en rojo claro
+   - 🔵 Celdas editadas en morado
+
+### 3. Editar Datos
+
+- **Celdas de texto**: Haz clic para editar directamente (tipo Excel)
+- **Celdas de catálogo**: Doble clic para abrir selector con búsqueda
+- Los cambios se validan automáticamente
+
+### 4. Enviar
+
+1. Haz clic en "Enviar" (solo si no hay errores)
+2. Confirma en el modal
+3. El JSON se descarga automáticamente (o sube a S3 si está configurado)
+
+## 🛠️ Scripts Disponibles
+
+### Desarrollo
 
 ```bash
-# Create production build
-npm run build
-
-# Preview production build
-npm run preview
+npm run dev          # Servidor de desarrollo
+npm run build        # Build de producción
+npm run preview      # Preview del build
 ```
 
-### Code Quality
+### Calidad de Código
 
 ```bash
-# Run ESLint
-npm run lint
-
-# Format code with Prettier
-npm run format
-
-# Check formatting
-npm run format:check
-
-# TypeScript type checking
-npm run typecheck
+npm run lint         # ESLint
+npm run format       # Formatear con Prettier
+npm run typecheck    # Verificar tipos TypeScript
 ```
 
 ### Testing
 
 ```bash
-# Run tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Generate coverage report
-npm run test:coverage
+npm test             # Ejecutar tests
+npm run test:watch   # Tests en modo watch
+npm run test:coverage # Cobertura de tests
 ```
 
-## Project Structure
+## 📁 Estructura del Proyecto
 
 ```
 verifty.template.reviewer/
-├── .github/
-│   └── workflows/
-│       └── ci.yml              # GitHub Actions CI/CD
 ├── public/
-│   └── index.html              # HTML template
-├── scripts/
-│   └── check-email.sh          # Email validation script
+│   └── assets/
+│       └── logo.jpeg           # Logo de Verifty
 ├── src/
-│   ├── api/
-│   │   ├── client.ts           # Axios client configuration
-│   │   └── endpoints.ts        # API endpoint definitions
 │   ├── features/
-│   │   └── example/
-│   │       ├── components/     # Feature components
-│   │       ├── hooks/          # Feature hooks
-│   │       ├── pages/          # Feature pages
-│   │       ├── services/       # Feature services
-│   │       └── types/          # Feature TypeScript types
-│   ├── components/             # Shared components
-│   ├── hooks/                  # Shared hooks
-│   ├── utils/                  # Utility functions
-│   ├── styles/                 # Global styles
-│   ├── tests/                  # Test setup and utilities
-│   ├── App.tsx                 # Main App component
-│   ├── main.tsx                # Application entry point
-│   └── index.css               # Global styles
-├── .eslintrc.js                # ESLint configuration
-├── .prettierrc                 # Prettier configuration
-├── .pre-commit-config.yaml     # Pre-commit hooks
-├── jest.config.js              # Jest configuration
-├── tsconfig.json               # TypeScript configuration
-├── vite.config.ts              # Vite configuration
-└── package.json                # Dependencies and scripts
+│   │   └── data-validation/
+│   │       ├── components/
+│   │       │   ├── FileUploader.tsx      # Drag & drop uploader
+│   │       │   ├── DataTable.tsx         # Tabla editable principal
+│   │       │   ├── TableRow.tsx          # Fila de tabla con lógica
+│   │       │   ├── EditableCell.tsx      # Celda editable (contentEditable)
+│   │       │   ├── SelectCell.tsx        # Celda con selector + búsqueda
+│   │       │   ├── ErrorSummary.tsx      # Resumen de errores
+│   │       │   ├── ConfirmationModal.tsx # Modal de confirmación
+│   │       │   ├── Alert.tsx             # Alertas de éxito/error
+│   │       │   ├── Loader.tsx            # Spinner de carga
+│   │       │   ├── ProgressIndicator.tsx # Barra de progreso
+│   │       │   ├── ActionButtons.tsx     # Botones Enviar/Cancelar
+│   │       │   └── FeatureDisabled.tsx   # Vista feature deshabilitada
+│   │       ├── hooks/
+│   │       │   ├── useFileUpload.ts      # Lógica de carga de archivos
+│   │       │   ├── useTableData.ts       # Estado de tabla + validación
+│   │       │   └── useValidation.ts      # Hook de validación
+│   │       ├── pages/
+│   │       │   └── UploadPage.tsx        # Página principal
+│   │       ├── services/
+│   │       │   ├── excelParser.service.ts    # Parser de Excel
+│   │       │   ├── validation.service.ts     # Lógica de validación
+│   │       │   ├── jsonGenerator.service.ts  # Generador de JSON
+│   │       │   └── s3Upload.service.ts       # Servicio de S3
+│   │       ├── types/
+│   │       │   ├── excel.types.ts        # Tipos de datos Excel
+│   │       │   ├── table.types.ts        # Tipos de tabla
+│   │       │   └── json-output.types.ts  # Tipos de JSON output
+│   │       └── constants/
+│   │           └── validationRules.ts    # Reglas de validación
+│   ├── components/
+│   │   └── Navbar.tsx          # Navbar con logo
+│   ├── config/
+│   │   ├── aws.config.ts       # Configuración de AWS
+│   │   └── featureFlags.config.ts  # Sistema de feature flags
+│   ├── App.tsx                 # App principal
+│   ├── main.tsx               # Entry point
+│   └── index.css              # Estilos globales + Tailwind
+├── .env                        # Variables de entorno (local)
+├── .env.example               # Template de variables
+├── tailwind.config.js         # Configuración de Tailwind
+└── package.json
 ```
 
-## Development Guidelines
+## 🧪 Testing
 
-### Feature-Based Architecture
+### Probar con Archivo de Ejemplo
 
-New features should follow this structure:
+1. Crea un archivo Excel con las hojas mencionadas arriba
+2. Llena datos de prueba (puedes poner algunos errores intencionales)
+3. Sube el archivo y verifica:
+   - ✅ Validación automática funciona
+   - ✅ Errores se muestran correctamente
+   - ✅ Edición inline funciona
+   - ✅ Selects con búsqueda funcionan
+   - ✅ JSON se descarga con estructura correcta
 
-```
-src/features/your-feature/
-├── components/          # Feature-specific components
-├── hooks/              # Feature-specific hooks
-├── pages/              # Feature pages
-├── services/           # API services
-└── types/              # TypeScript types
-```
+### Modo Desarrollo vs Producción
 
-### Path Aliases
+**Desarrollo (VITE_AWS_UPLOAD_ENABLED=false):**
 
-Use the `@/` alias to import from the `src` directory:
+- JSON se descarga localmente
+- No requiere AWS configurado
+- Útil para pruebas
 
-```typescript
-import { apiClient } from '@/api/client'
-import { ExamplePage } from '@/features/example/pages/ExamplePage'
-```
+**Producción (VITE_AWS_UPLOAD_ENABLED=true):**
 
-### API Integration
+- JSON se sube a S3
+- Requiere credenciales de AWS
+- Para ambiente real
 
-Configure the API base URL via environment variable:
+## 🚀 Feature Flags (Trunk-Based Development)
+
+Este proyecto usa **Feature Flags** para desacoplar despliegue y lanzamiento:
 
 ```bash
-# .env.local
-VITE_API_BASE_URL=http://localhost:3001/api
+# Deshabilitar feature completa (modo mantenimiento)
+VITE_FEATURE_BULK_UPLOAD_ENABLED=false
+
+# Cambiar entre descarga local y S3
+VITE_AWS_UPLOAD_ENABLED=true
 ```
 
-## CI/CD Pipeline
+## 🔒 Pre-commit Hooks
 
-The project uses GitHub Actions for continuous integration:
+Los hooks se ejecutan automáticamente en cada commit:
 
-1. **Email Validation** - Ensures all commits use @verifty.com emails
-2. **Type Checking** - Validates TypeScript types
-3. **Linting** - Runs ESLint
-4. **Formatting** - Checks Prettier formatting
-5. **Testing** - Runs Jest tests
-6. **Building** - Creates production build
+- ✅ Validación de email @verifty.com
+- ✅ TypeScript type checking
+- ✅ ESLint
+- ✅ Prettier
 
-All checks must pass before merging to `main`.
+## 📝 Convención de Commits
 
-## Pre-commit Hooks
+```
+<task-id>: <descripción>
 
-Pre-commit hooks automatically run on every commit:
-
-- Corporate email validation
-- TypeScript type checking
-- ESLint linting
-- Prettier formatting
-
-To bypass hooks (not recommended):
-
-```bash
-git commit --no-verify
+Ejemplo:
+86ad2xk1h: Add JSON generation service
 ```
 
-## Contributing
+## 🤝 Contribución
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines.
+1. Hacer fork del repositorio
+2. Crear rama desde `trunk`: `git checkout -b feature/nueva-feature`
+3. Hacer commits con convención establecida
+4. Push y crear Pull Request a `trunk`
+5. Esperar aprobación y merge
 
-## License
+## 📄 Licencia
 
-Copyright © 2024 Verifty. All rights reserved.
+Copyright © 2024 Verifty. Todos los derechos reservados.
