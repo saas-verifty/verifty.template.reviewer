@@ -257,7 +257,6 @@ const VALIDATION_RULES = {
    - Show total rows
    - Show number of errors
    - List most common error types
-   - Button to export error report (optional)
 
 2. **`src/components/ConfirmationModal.tsx`**
    - Confirmation modal before submission
