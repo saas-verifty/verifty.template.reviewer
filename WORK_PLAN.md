@@ -13,20 +13,17 @@ This document details the recommended implementation order, files to create, and
 ### Files to Create
 
 1. **`src/types/excel.types.ts`**
-
    - Define types for Excel sheets
    - Types for parsed data
    - Types for row/column structure
 
 2. **`src/components/FileUploader.tsx`**
-
    - Drag & drop or button selection component
    - Validate file type (.xlsx, .xls)
    - Validate maximum size (use `VITE_MAX_FILE_SIZE_MB`)
    - Display selected file name
 
 3. **`src/services/excelParser.service.ts`**
-
    - Main function: `parseExcelFile(file: File): Promise<ParsedExcelData>`
    - Use SheetJS (xlsx) to read file
    - Extract all Excel sheets
@@ -34,7 +31,6 @@ This document details the recommended implementation order, files to create, and
    - Convert data to structured format
 
 4. **`src/hooks/useFileUpload.ts`**
-
    - Custom hook to manage upload state
    - States: idle, loading, success, error
    - Handle parsing errors
@@ -71,13 +67,13 @@ This document details the recommended implementation order, files to create, and
 ```typescript
 interface ParsedExcelData {
   mainSheet: {
-    name: string;
-    data: RowData[];
-    headers: string[];
-  };
+    name: string
+    data: RowData[]
+    headers: string[]
+  }
   catalogSheets: {
-    [sheetName: string]: CatalogData[];
-  };
+    [sheetName: string]: CatalogData[]
+  }
 }
 ```
 
@@ -90,13 +86,11 @@ interface ParsedExcelData {
 ### Files to Create
 
 1. **`src/types/table.types.ts`**
-
    - Types for table data
    - Types for editable cells
    - Types for edit state
 
 2. **`src/components/DataTable/DataTable.tsx`**
-
    - Main table component
    - Render headers
    - Render rows with data
@@ -104,7 +98,6 @@ interface ParsedExcelData {
    - Styling with Tailwind
 
 3. **`src/components/DataTable/EditableCell.tsx`**
-
    - Individual editable cell
    - Modes: view/edit
    - Apply error styles (`bg-error-cell`)
@@ -112,18 +105,16 @@ interface ParsedExcelData {
    - Emit changes to parent component
 
 4. **`src/components/DataTable/TableRow.tsx`**
-
    - Row component
    - Apply error style to entire row (`bg-error-row`)
    - Render multiple EditableCell components
 
 5. **`src/hooks/useTableData.ts`**
-
    - Hook to manage table data state
    - Update individual cells
    - Keep track of changes
 
-6. **`src/pages/ValidationPage.tsx`**
+6. **`src/pages/UploadPage.tsx`**
    - Page containing DataTable
    - Action buttons: "Validate", "Submit", "Cancel"
    - Validation progress indicator
@@ -157,13 +148,13 @@ interface ParsedExcelData {
 
 ```typescript
 interface CellData {
-  value: string | number | boolean | null;
-  originalValue: string | number | boolean | null;
-  isEdited: boolean;
-  hasError: boolean;
-  errorMessage?: string;
-  columnName: string;
-  rowIndex: number;
+  value: string | number | boolean | null
+  originalValue: string | number | boolean | null
+  isEdited: boolean
+  hasError: boolean
+  errorMessage?: string
+  columnName: string
+  rowIndex: number
 }
 ```
 
@@ -176,20 +167,17 @@ interface CellData {
 ### Files to Create
 
 1. **`src/types/validation.types.ts`**
-
    - Types for validation rules
    - Types for validation results
    - Types for errors
 
 2. **`src/constants/validationRules.ts`**
-
    - Define required fields
    - Define expected data types
    - Define allowed enums
    - Define hierarchical relationships
 
 3. **`src/services/validation.service.ts`**
-
    - Function: `validateRow(row: RowData, catalogData: CatalogData): ValidationResult`
    - Function: `validateRequiredFields(row: RowData): FieldError[]`
    - Function: `validateDataTypes(row: RowData): FieldError[]`
@@ -198,13 +186,11 @@ interface CellData {
    - Function: `validateHierarchy(row: RowData, allRows: RowData[]): FieldError[]`
 
 4. **`src/services/catalogValidator.service.ts`**
-
    - Validate that IDs exist in catalog sheets
    - Validate relationships between entities
    - Cache catalogs for performance
 
 5. **`src/hooks/useValidation.ts`**
-
    - Hook to execute validations
    - Manage validation state (in progress, completed)
    - Return errors grouped by row/cell
@@ -256,7 +242,7 @@ const VALIDATION_RULES = {
     subactividad_id: { parent: 'actividad_id' },
     peligro_id: { parent: 'subactividad_id' },
   },
-};
+}
 ```
 
 ---
@@ -268,21 +254,18 @@ const VALIDATION_RULES = {
 ### Files to Create
 
 1. **`src/components/ValidationSummary.tsx`**
-
    - Show total rows
    - Show number of errors
    - List most common error types
    - Button to export error report (optional)
 
 2. **`src/components/ConfirmationModal.tsx`**
-
    - Confirmation modal before submission
    - Show final summary
    - Buttons: "Confirm" and "Cancel"
    - Create custom modal with Tailwind
 
 3. **`src/components/ProgressIndicator.tsx`**
-
    - Progress indicator during submission
    - States: validating, generating JSON, uploading to S3
    - Loading animation
@@ -317,15 +300,15 @@ const VALIDATION_RULES = {
 
 ```typescript
 interface ValidationSummary {
-  totalRows: number;
-  validRows: number;
-  errorRows: number;
+  totalRows: number
+  validRows: number
+  errorRows: number
   errorsByType: {
-    requiredFields: number;
-    invalidType: number;
-    catalogNotFound: number;
-    hierarchyError: number;
-  };
+    requiredFields: number
+    invalidType: number
+    catalogNotFound: number
+    hierarchyError: number
+  }
 }
 ```
 
@@ -338,26 +321,22 @@ interface ValidationSummary {
 ### Files to Create
 
 1. **`src/types/json-output.types.ts`**
-
    - Types for final JSON structure
    - Types for metadata
 
 2. **`src/services/jsonGenerator.service.ts`**
-
    - Function: `generateJSON(validatedData: ValidatedData): IPEVRJson`
    - Transform table data to expected JSON format
    - Include metadata (date, user, version)
    - Validate final structure
 
 3. **`src/services/s3Upload.service.ts`**
-
    - Configure S3 client with AWS SDK
    - Function: `uploadToS3(jsonData: string, fileName: string): Promise<S3UploadResult>`
    - Handle connection errors
    - Generate unique filename (timestamp)
 
 4. **`src/config/aws.config.ts`**
-
    - Read environment variables
    - Configure AWS credentials
    - Export S3 configuration
@@ -397,7 +376,7 @@ interface ValidationSummary {
 
 ```typescript
 // src/config/aws.config.ts
-import { S3Client } from '@aws-sdk/client-s3';
+import { S3Client } from '@aws-sdk/client-s3'
 
 export const s3Client = new S3Client({
   region: import.meta.env.VITE_AWS_REGION,
@@ -405,12 +384,12 @@ export const s3Client = new S3Client({
     accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
     secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
   },
-});
+})
 
 export const S3_CONFIG = {
   bucket: import.meta.env.VITE_S3_BUCKET_NAME,
   region: import.meta.env.VITE_S3_BUCKET_REGION,
-};
+}
 ```
 
 ### Final JSON Structure (Example)
@@ -443,7 +422,6 @@ export const S3_CONFIG = {
 ### Resources to Create in AWS
 
 1. **S3 Bucket**
-
    - Name: according to `VITE_S3_BUCKET_NAME`
    - Region: according to `VITE_S3_BUCKET_REGION`
    - Configure CORS to allow uploads from frontend
@@ -451,13 +429,11 @@ export const S3_CONFIG = {
    - Lifecycle rules (optional): move old files to Glacier
 
 2. **IAM User/Role** (if not exists)
-
    - Create user with limited permissions
    - Policy: `s3:PutObject`, `s3:GetObject` only on specific bucket
    - Generate Access Key and Secret Key
 
 3. **Lambda Function** (Optional - Advanced phase)
-
    - Trigger: S3 upload event
    - Process uploaded JSON
    - Validate structure
@@ -524,34 +500,29 @@ export const S3_CONFIG = {
 ### Files to Create
 
 1. **`docs/USER_GUIDE.md`**
-
    - Step-by-step user guide
    - Interface screenshots
    - Common use cases
    - Troubleshooting
 
 2. **`docs/DEVELOPER_GUIDE.md`**
-
    - Project architecture
    - Data flow
    - APIs and services
    - How to add new validations
 
 3. **`docs/EXCEL_TEMPLATE.md`**
-
    - Expected Excel structure
    - Required sheet names
    - Column format
    - Valid data examples
 
 4. **Unit Tests**
-
    - `src/services/__tests__/excelParser.test.ts`
    - `src/services/__tests__/validation.test.ts`
    - `src/services/__tests__/jsonGenerator.test.ts`
 
 5. **Integration Tests**
-
    - `src/__tests__/upload-flow.test.tsx`
    - `src/__tests__/validation-flow.test.tsx`
 
