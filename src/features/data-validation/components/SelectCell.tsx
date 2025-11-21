@@ -18,7 +18,7 @@ export function SelectCell({ cell, options, onChange }: Props) {
   const textClass = cell.hasError
     ? 'text-fg-danger'
     : cell.isEdited
-      ? 'font-medium text-fg-brand'
+      ? 'font-medium text-fg-purple'
       : 'text-body'
 
   const filteredOptions = options.filter((opt) =>
@@ -78,7 +78,7 @@ export function SelectCell({ cell, options, onChange }: Props) {
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Buscar..."
-            className="w-full px-4 py-3 bg-bg-brand-softer border-2 border-bg-brand outline-none text-body"
+            className="w-full px-4 py-3 bg-bg-purple/10 border-2 border-bg-purple outline-none text-body"
           />
           <div className="absolute top-full left-0 right-0 max-h-48 overflow-y-auto bg-white border border-bg-gray rounded-b-lg shadow-lg">
             {filteredOptions.length === 0 ? (

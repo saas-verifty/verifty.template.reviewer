@@ -14,7 +14,7 @@ export function EditableCell({ cell, onChange }: Props) {
   const textClass = cell.hasError
     ? 'text-fg-danger'
     : cell.isEdited
-      ? 'font-medium text-fg-brand'
+      ? 'font-medium text-fg-purple'
       : 'text-body'
 
   const handleBlur = (e: React.FocusEvent<HTMLTableCellElement>) => {
@@ -40,7 +40,7 @@ export function EditableCell({ cell, onChange }: Props) {
       ref={cellRef}
       contentEditable
       suppressContentEditableWarning
-      className={`px-4 py-4 outline-none cursor-text focus:bg-bg-brand-softer focus:ring-2 focus:ring-bg-brand focus:ring-inset ${cellErrorClass} ${textClass}`}
+      className={`px-4 py-4 outline-none cursor-text focus:bg-bg-purple/10 focus:ring-2 focus:ring-bg-purple focus:ring-inset ${cellErrorClass} ${textClass}`}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       title={cell.errorMessage}
