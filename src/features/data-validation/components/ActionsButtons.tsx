@@ -16,14 +16,14 @@ export function ActionButtons({
       <button
         onClick={onSubmit}
         disabled={loading || hasErrors}
-        className="px-6 py-2 bg-bg-brand text-white rounded-lg font-medium hover:bg-bg-brand-strong disabled:bg-bg-disabled disabled:text-fg-disabled transition-colors"
+        className="px-6 py-2.5 bg-bg-purple text-white rounded-lg font-medium cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       >
         Enviar
       </button>
       <button
         onClick={onCancel}
         disabled={loading}
-        className="px-6 py-2 bg-bg-tertiary text-body rounded-lg font-medium hover:bg-bg-quaternary disabled:bg-bg-disabled disabled:text-fg-disabled transition-colors"
+        className="px-6 py-2.5 bg-white text-fg-purple border-2 border-bg-purple rounded-lg font-medium cursor-pointer hover:bg-bg-purple/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       >
         Cancelar
       </button>
