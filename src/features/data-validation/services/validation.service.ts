@@ -19,6 +19,7 @@ import {
   buildCatalogIndex,
   CatalogIndex,
 } from './catalogValidator.service'
+import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 /**
  * Valida el tipo del campo según FIELD_TYPES
@@ -63,15 +64,15 @@ function validateHierarchy(row: any): string | null {
   const peligro = normalizeValue(getCellValue(row[HIERARCHY_FIELDS.peligro]))
 
   if (!proceso && (actividad || subactividad || peligro)) {
-    return 'La actividad, subactividad o peligro no pueden existir sin proceso.'
+    return ERROR_MESSAGES.PROCESS_REQUIRED_FOR_CHILDREN
   }
 
   if (!actividad && (subactividad || peligro)) {
-    return 'La subactividad o peligro no pueden existir sin actividad.'
+    return ERROR_MESSAGES.ACTIVITY_REQUIRED_FOR_CHILDREN
   }
 
   if (!subactividad && peligro) {
-    return 'El peligro no puede existir sin subactividad.'
+    return ERROR_MESSAGES.SUBACTIVITY_REQUIRED_FOR_DANGER
   }
 
   return null

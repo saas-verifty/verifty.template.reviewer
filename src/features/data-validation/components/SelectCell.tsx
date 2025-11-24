@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
 import { CellData } from '../types/table.types'
+import { UI_MESSAGES } from '@/constants/uiMessages'
 
 type Props = {
   cell: CellData
@@ -47,7 +48,7 @@ export function SelectCell({ cell, options, onChange }: Props) {
 
   const handleSelect = (value: string) => {
     // Si selecciona "(Vacío)", guardar string vacío
-    onChange(value === '(Vacío)' ? '' : value)
+    onChange(value === UI_MESSAGES.EMPTY_VALUE ? '' : value)
     setIsOpen(false)
     setSearch('')
   }
@@ -77,12 +78,12 @@ export function SelectCell({ cell, options, onChange }: Props) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Buscar..."
+            placeholder={UI_MESSAGES.SEARCH_PLACEHOLDER}
             className="w-full px-4 py-3 bg-bg-purple/10 border-2 border-bg-purple outline-none text-body"
           />
           <div className="absolute top-full left-0 right-0 max-h-48 overflow-y-auto bg-white border border-bg-gray rounded-b-lg shadow-lg">
             {filteredOptions.length === 0 ? (
-              <div className="px-4 py-2 text-body-subtle text-sm">Sin resultados</div>
+              <div className="px-4 py-2 text-body-subtle text-sm">{UI_MESSAGES.NO_RESULTS}</div>
             ) : (
               filteredOptions.map((opt) => (
                 <div

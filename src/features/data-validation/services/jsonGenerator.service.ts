@@ -3,7 +3,8 @@ import {
   IPEVRJsonOutput,
   ProcesoOutput,
   PeligroOutput,
-} from '../types/json-output.types'
+} from '../types/jsonOutput.types'
+import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 /**
  * Obtiene el valor de una celda de forma segura
@@ -97,7 +98,7 @@ export function generateJSON(table: TableData): IPEVRJsonOutput {
   const procesos = Array.from(procesoMap.values())
 
   if (procesos.length === 0) {
-    throw new Error('No se pudo generar el JSON: no hay datos válidos')
+    throw new Error(ERROR_MESSAGES.JSON_GENERATION_NO_DATA)
   }
 
   return {

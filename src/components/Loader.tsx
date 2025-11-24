@@ -1,8 +1,10 @@
+import { UI_MESSAGES } from '@/constants/uiMessages'
+
 type Props = {
   message?: string
 }
 
-export function Loader({ message = 'Cargando...' }: Props) {
+export function Loader({ message = UI_MESSAGES.LOADING_DEFAULT }: Props) {
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-8">
       <div className="relative w-16 h-16">

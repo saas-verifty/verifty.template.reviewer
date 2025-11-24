@@ -1,6 +1,7 @@
 import * as XLSX from 'xlsx'
 
 import { SHEET_NAMES } from '../constants/validationRules'
+import { ERROR_MESSAGES } from '@/constants/errorMessages'
 import type {
   ParsedExcelData,
   MainSheetRow,
@@ -16,11 +17,11 @@ const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
       if (result instanceof ArrayBuffer) {
         resolve(result)
       } else {
-        reject(new Error('Fallo al leer el archivo como ArrayBuffer'))
+        reject(new Error(ERROR_MESSAGES.ARRAY_BUFFER_READ_FAILED))
       }
     }
     reader.onerror = () => {
-      reject(new Error('Error leyendo el archivo'))
+      reject(new Error(ERROR_MESSAGES.FILE_READ_ERROR))
     }
     reader.readAsArrayBuffer(file)
   })
@@ -34,23 +35,17 @@ export const parseExcelFile = async (file: File): Promise<ParsedExcelData> => {
     const sheetNames = workbook.SheetNames
 
     if (!sheetNames.includes(SHEET_NAMES.MAIN)) {
-      throw new Error(
-        `La hoja requerida "${SHEET_NAMES.MAIN}" no fue encontrada en el archivo Excel`
-      )
+      throw new Error(ERROR_MESSAGES.SHEET_NOT_FOUND(SHEET_NAMES.MAIN))
     }
 
     if (!sheetNames.includes(SHEET_NAMES.VALIDATION)) {
-      throw new Error(
-        `La hoja requerida: "${SHEET_NAMES.VALIDATION}" no fue encontrada en el archivo Excel`
-      )
+      throw new Error(ERROR_MESSAGES.SHEET_NOT_FOUND(SHEET_NAMES.VALIDATION))
     }
 
     const hazardEntries = Object.entries(SHEET_NAMES.HAZARDS)
     for (const [, sheetName] of hazardEntries) {
       if (!sheetNames.includes(sheetName)) {
-        throw new Error(
-          `La hoja de peligros requerida "${sheetName}" no fue encontrada en el archivo Excel`
-        )
+        throw new Error(ERROR_MESSAGES.SHEET_NOT_FOUND(sheetName))
       }
     }
 
@@ -102,8 +97,8 @@ export const parseExcelFile = async (file: File): Promise<ParsedExcelData> => {
     }
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(`Error al parsear el archivo Excel: ${error.message}`)
+      throw new Error(ERROR_MESSAGES.EXCEL_PARSE_ERROR(error.message))
     }
-    throw new Error('Error al parsear el archivo Excel: Error desconocido')
+    throw new Error(ERROR_MESSAGES.EXCEL_PARSE_UNKNOWN_ERROR)
   }
 }

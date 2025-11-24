@@ -5,14 +5,9 @@ import {
   ErrorSummary,
   ErrorType,
 } from '../types/validation.types'
+import { VALIDATION_MESSAGES } from '@/constants/validationMessages'
 
-const defaultMessages: Record<ErrorType, string> = {
-  required: 'Campo requerido',
-  invalid_type: 'Tipo de dato inválido',
-  enum_mismatch: 'Valor no permitido',
-  catalog_not_found: 'Referencia de catálogo no encontrada',
-  hierarchy_error: 'Error de jerarquía',
-}
+const defaultMessages: Record<ErrorType, string> = VALIDATION_MESSAGES
 
 export function formatCellError(error: CellError): string {
   const base = defaultMessages[error.errorType] ?? 'Error'

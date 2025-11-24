@@ -1,4 +1,5 @@
 import { TableData } from '../types/table.types'
+import { UI_MESSAGES } from '@/constants/uiMessages'
 
 type Props = {
   table: TableData
@@ -31,7 +32,7 @@ export function ErrorSummary({ table }: Props) {
         <div className="flex items-center gap-2">
           <span className="text-fg-success text-lg">✓</span>
           <span className="text-fg-success font-medium">
-            Todos los datos son válidos
+            {UI_MESSAGES.ALL_DATA_VALID}
           </span>
         </div>
       </div>
@@ -56,8 +57,8 @@ export function ErrorSummary({ table }: Props) {
         <div className="flex items-center gap-2">
           <span className="text-fg-danger text-lg">✕</span>
           <span className="text-fg-danger font-medium">
-            {totalErrors} {totalErrors === 1 ? 'error' : 'errores'} en {rowsWithErrors}{' '}
-            {rowsWithErrors === 1 ? 'fila' : 'filas'}
+            {totalErrors} {UI_MESSAGES.ERROR(totalErrors)} en {rowsWithErrors}{' '}
+            {UI_MESSAGES.ROW(rowsWithErrors)}
           </span>
         </div>
       </div>

@@ -182,7 +182,7 @@ verifty.template.reviewer/
 │   │       ├── types/
 │   │       │   ├── excel.types.ts        # Tipos de datos Excel
 │   │       │   ├── table.types.ts        # Tipos de tabla
-│   │       │   └── json-output.types.ts  # Tipos de JSON output
+│   │       │   └── jsonOutput.types.ts   # Tipos de JSON output
 │   │       └── constants/
 │   │           └── validationRules.ts    # Reglas de validación
 │   ├── components/

@@ -1,5 +1,6 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { s3Client, S3_CONFIG, isAWSConfigured } from '../../../config/aws.config'
+import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 export interface S3UploadResult {
   success: boolean
@@ -21,14 +22,14 @@ export async function uploadToS3(
   if (!isAWSConfigured()) {
     return {
       success: false,
-      error: 'AWS no está configurado. Por favor, configura las variables de entorno.',
+      error: ERROR_MESSAGES.AWS_NOT_CONFIGURED,
     }
   }
 
   if (!s3Client) {
     return {
       success: false,
-      error: 'Cliente de S3 no inicializado',
+      error: ERROR_MESSAGES.S3_CLIENT_NOT_INITIALIZED,
     }
   }
 
@@ -57,7 +58,7 @@ export async function uploadToS3(
     console.error('Error al subir a S3:', error)
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Error desconocido al subir archivo',
+      error: error instanceof Error ? error.message : ERROR_MESSAGES.S3_UPLOAD_UNKNOWN_ERROR,
     }
   }
 }
@@ -69,7 +70,7 @@ export function checkAWSConfiguration(): { configured: boolean; message?: string
   if (!isAWSConfigured()) {
     return {
       configured: false,
-      message: 'AWS no está configurado. Verifica las variables de entorno en .env',
+      message: ERROR_MESSAGES.AWS_NOT_CONFIGURED_CHECK,
     }
   }
 

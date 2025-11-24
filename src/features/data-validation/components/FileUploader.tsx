@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { UI_MESSAGES } from '@/constants/uiMessages'
 
 type Props = {
   onFileSelected: (file: File) => void
@@ -42,7 +43,7 @@ export const FileUploader = ({ onFileSelected, disable }: Props) => {
 
   return (
     <div className="w-full max-w-xl">
-      <p className="text-body text-sm mb-2">Solo archivos Excel (.xlsx, .xls)</p>
+      <p className="text-body text-sm mb-2">{UI_MESSAGES.FILE_UPLOADER.ALLOWED_FORMATS}</p>
       <div
         onClick={handleClick}
         onDragOver={handleDragOver}
@@ -64,10 +65,10 @@ export const FileUploader = ({ onFileSelected, disable }: Props) => {
         </div>
 
         <p className="text-body text-center">
-          Clic para cargar archivo o arrastra y suelta
+          {UI_MESSAGES.FILE_UPLOADER.DROP_OR_CLICK}
         </p>
 
-        <p className="text-body-subtle text-sm">Max. File Size: 10MB</p>
+        <p className="text-body-subtle text-sm">{UI_MESSAGES.FILE_UPLOADER.MAX_FILE_SIZE}</p>
 
         <button
           type="button"
@@ -78,7 +79,7 @@ export const FileUploader = ({ onFileSelected, disable }: Props) => {
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          Buscar archivo
+          {UI_MESSAGES.FILE_UPLOADER.SEARCH_FILE}
         </button>
 
         <input

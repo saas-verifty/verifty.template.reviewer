@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { TableData } from '../types/table.types'
+import { TableData } from '@/features/data-validation/types/table.types'
+import { UI_MESSAGES } from '@/constants/uiMessages'
 
 type Props = {
   isOpen: boolean
@@ -59,13 +60,13 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
           </div>
 
           <h2 className="text-lg font-semibold text-black mb-2">
-            ¿Confirmar envío?
+            {UI_MESSAGES.CONFIRM_SUBMISSION}
           </h2>
 
           <p className="text-body mb-4">
-            Estás a punto de enviar {totalRows} {totalRows === 1 ? 'registro' : 'registros'}
+            Estás a punto de enviar {totalRows} {UI_MESSAGES.RECORD(totalRows)}
             {editedRows > 0 && (
-              <span className="text-fg-purple"> ({editedRows} {editedRows === 1 ? 'editado' : 'editados'})</span>
+              <span className="text-fg-purple"> ({editedRows} {UI_MESSAGES.EDITED(editedRows)})</span>
             )}
           </p>
 
@@ -73,7 +74,7 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
             <div className="w-full mb-4">
               <div className="flex items-center justify-center gap-3 py-2">
                 <div className="w-5 h-5 border-2 border-bg-purple border-t-transparent rounded-full animate-spin"></div>
-                <span className="text-body text-sm">Procesando...</span>
+                <span className="text-body text-sm">{UI_MESSAGES.PROCESSING}</span>
               </div>
             </div>
           )}
@@ -84,14 +85,14 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
               disabled={loading}
               className="flex-1 px-4 py-2.5 bg-bg-purple text-white rounded-lg font-medium cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              Confirmar
+              {UI_MESSAGES.CONFIRM_BUTTON}
             </button>
             <button
               onClick={onCancel}
               disabled={loading}
               className="flex-1 px-4 py-2.5 bg-white text-body border border-bg-gray rounded-lg font-medium cursor-pointer hover:bg-bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              No, cancelar
+              {UI_MESSAGES.CANCEL_BUTTON}
             </button>
           </div>
         </div>

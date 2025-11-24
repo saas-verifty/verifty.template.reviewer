@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { parseExcelFile } from '../services/parseExcelFile.service'
+import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 import type { ParsedExcelData } from '../types/excel.types'
 
@@ -16,19 +17,19 @@ export default function useFileUpload() {
       'application/vnd.ms-excel',
     ]
     if (!okTypes.includes(file.type) && !/\.(xlsx|xls)$/i.test(file.name)) {
-      return 'Formato no soportado. Usa .xlsx o .xls'
+      return ERROR_MESSAGES.FILE_FORMAT_UNSUPPORTED
     }
 
     const maxSizeMB = Number(import.meta.env.VITE_MAX_FILE_SIZE_MB) || 50
     const maxSizeBytes = maxSizeMB * 1024 * 1024
 
     if (file.size > maxSizeBytes) {
-      return `El archivo excede el tamaño máximo permitido: ${maxSizeMB}MB`
+      return ERROR_MESSAGES.FILE_SIZE_EXCEEDED(maxSizeMB)
     }
 
     const name = file.name.split('_')
     if (name.length < 5) {
-      return 'El nombre del archivo no cumple con el formato requerido.'
+      return ERROR_MESSAGES.FILE_NAME_INVALID
     }
 
     return null
@@ -52,7 +53,7 @@ export default function useFileUpload() {
         const parsedData = await parseExcelFile(file)
         setData(parsedData)
       } catch (error) {
-        setError((error as Error)?.message ?? 'Error al parsear el archivo')
+        setError((error as Error)?.message ?? ERROR_MESSAGES.FILE_PARSE_ERROR)
         setData(null)
       } finally {
         setLoading(false)

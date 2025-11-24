@@ -8,6 +8,7 @@ import {
   HAZARD_TYPES,
   HAZARD_TYPE_TO_CATALOG_KEY,
 } from '../constants/validationRules'
+import { UI_MESSAGES } from '@/constants/uiMessages'
 
 type Props = {
   row: RowData
@@ -61,7 +62,7 @@ function getOptionsForColumn(
     // Incluir vacío si existe en el catálogo
     const uniqueValues = [...new Set(values)]
     if (uniqueValues.some((v) => v === '')) {
-      return ['(Vacío)', ...uniqueValues.filter((v) => v !== '')]
+      return [UI_MESSAGES.EMPTY_VALUE, ...uniqueValues.filter((v) => v !== '')]
     }
     return uniqueValues.filter((v) => v !== '')
   }
@@ -75,7 +76,7 @@ function getOptionsForColumn(
       hazardRows = hazardRows.filter((r) => r.descripcion_peligro === descPeligro)
     }
     // Filtrar por especifica (puede ser vacío)
-    if (descEspecifica === '(Vacío)' || descEspecifica === '') {
+    if (descEspecifica === UI_MESSAGES.EMPTY_VALUE || descEspecifica === '') {
       hazardRows = hazardRows.filter((r) => !r.descripcion_especifica_peligro || r.descripcion_especifica_peligro.trim() === '')
     } else if (descEspecifica) {
       hazardRows = hazardRows.filter((r) => r.descripcion_especifica_peligro === descEspecifica)

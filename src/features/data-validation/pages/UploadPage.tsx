@@ -7,16 +7,18 @@ import { FileUploader } from '../components/FileUploader'
 import { DataTable } from '../components/DataTable'
 import { ActionButtons } from '../components/ActionsButtons'
 import { ErrorSummary } from '../components/ErrorSummary'
-import { ConfirmationModal } from '../components/ConfirmationModal'
-import { Alert } from '../components/Alert'
-import { Loader } from '../components/Loader'
-import { FeatureDisabled } from '../components/FeatureDisabled'
+import { ConfirmationModal } from '@/components/ConfirmationModal'
+import { Alert } from '@/components/Alert'
+import { Loader } from '@/components/Loader'
+import { FeatureDisabled } from '@/components/FeatureDisabled'
 import { generateJSON } from '../services/jsonGenerator.service'
 import { uploadToS3 } from '../services/s3Upload.service'
 import {
   isFeatureEnabled,
   FEATURE_DISABLED_MESSAGES,
 } from '../../../config/featureFlags.config'
+import { UI_MESSAGES } from '@/constants/uiMessages'
+import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 export default function UploadPage() {
   const { file, data, handleFile, loading, error, clear } = useFileUpload()
@@ -68,13 +70,12 @@ export default function UploadPage() {
           setIsModalOpen(false)
           setAlert({
             type: 'success',
-            message:
-              '¡Datos enviados! En aproximadamente 30 minutos podrás ver los datos en la plataforma.',
+            message: UI_MESSAGES.SUBMIT_SUCCESS_S3,
           })
           clear()
           clearTable()
         } else {
-          throw new Error(result.error || 'Error al subir archivo')
+          throw new Error(result.error || ERROR_MESSAGES.S3_UPLOAD_GENERIC_ERROR)
         }
       } else {
         // Descargar JSON localmente (para pruebas/desarrollo)
@@ -92,7 +93,7 @@ export default function UploadPage() {
         setIsModalOpen(false)
         setAlert({
           type: 'success',
-          message: '¡JSON descargado correctamente! (Modo desarrollo)',
+          message: UI_MESSAGES.SUBMIT_SUCCESS_LOCAL,
         })
         clear()
         clearTable()
@@ -104,7 +105,7 @@ export default function UploadPage() {
         message:
           error instanceof Error
             ? error.message
-            : 'Error al enviar los datos. Por favor, intenta nuevamente.',
+            : UI_MESSAGES.SUBMIT_ERROR_FALLBACK,
       })
     } finally {
       setIsSubmitting(false)
@@ -140,15 +141,13 @@ export default function UploadPage() {
 
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-black mb-2">
-            {data ? 'Revisión de datos' : 'Carga masiva IPEVR'}
+            {data ? UI_MESSAGES.DATA_REVIEW_TITLE : UI_MESSAGES.BULK_UPLOAD_TITLE}
           </h1>
           <p className="text-body">
-            {data
-              ? 'Revisa y edita los datos antes de enviar'
-              : 'Un espacio seguro para subir y validar tus archivos Excel de IPEVR'}
+            {data ? UI_MESSAGES.DATA_REVIEW_SUBTITLE : UI_MESSAGES.UPLOAD_PAGE_SUBTITLE}
           </p>
         </div>
-        {loading && <Loader message="Procesando archivo..." />}
+        {loading && <Loader message={UI_MESSAGES.PROCESSING_FILE} />}
         {!loading && !data && (
           <div className="flex flex-col items-center justify-center">
             <FileUploader onFileSelected={handleFile} disable={loading} />
