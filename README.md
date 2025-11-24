@@ -77,6 +77,50 @@ npm run dev
 
 La aplicación estará disponible en: http://localhost:5173
 
+## 🐳 Docker
+
+### Quick Start
+
+```bash
+# Construir y ejecutar
+docker-compose up -d
+
+# La aplicación estará en: http://localhost:3000
+```
+
+### Configurar Variables de Entorno
+
+Las variables de entorno se configuran en `docker-compose.yml` bajo `build.args`:
+
+```yaml
+build:
+  args:
+    VITE_FEATURE_BULK_UPLOAD_ENABLED: "true"  # Habilitar/deshabilitar funcionalidad
+    VITE_AWS_UPLOAD_ENABLED: "false"          # false = descarga local, true = S3
+    VITE_API_BASE_URL: "http://localhost:3001/api"
+    VITE_MAX_FILE_SIZE_MB: "5"
+```
+
+**Después de cambiar valores, reconstruir:**
+
+```bash
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+### Comandos Útiles
+
+```bash
+# Ver logs
+docker-compose logs -f
+
+# Detener contenedores
+docker-compose down
+
+# Reconstruir imagen
+docker-compose build --no-cache
+```
+
 ## 📋 Cómo Usar la Aplicación
 
 ### 1. Preparar el Archivo Excel

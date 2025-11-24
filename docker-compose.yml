@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_FEATURE_BULK_UPLOAD_ENABLED: "true"
+        VITE_AWS_UPLOAD_ENABLED: "false"
+        VITE_API_BASE_URL: "http://localhost:3001/api"
+        VITE_MAX_FILE_SIZE_MB: "5"
+    container_name: verifty-template-reviewer
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - verifty-network
+
+networks:
+  verifty-network:
+    driver: bridge
