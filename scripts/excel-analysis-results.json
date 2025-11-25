@@ -1,0 +1,805 @@
+{
+  "PlantillaMatrizIPEVR_10_Company - Error Nombre.xlsx": {
+    "fileName": "PlantillaMatrizIPEVR_10_Company - Error Nombre.xlsx",
+    "sheets": {
+      "main": {
+        "exists": true,
+        "rowCount": 1,
+        "columns": [
+          "proceso",
+          "actividad",
+          "subactividad",
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "area_empresa",
+          "peligro",
+          "descripcion_peligro",
+          "descripcion_especifica_peligro",
+          "consecuencia_efecto_posible",
+          "controles_existentes_fuente",
+          "controles_existentes_medio",
+          "controles_existentes_individuo",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "validationLists": {
+        "exists": true,
+        "rowCount": 13,
+        "columns": [
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "areas_empresa",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "hazardCatalogs": {
+        "Biológico": {
+          "exists": true,
+          "rowCount": 8
+        },
+        "Físico": {
+          "exists": true,
+          "rowCount": 51
+        },
+        "Químico": {
+          "exists": true,
+          "rowCount": 21
+        },
+        "Psicosocial": {
+          "exists": true,
+          "rowCount": 87
+        },
+        "Biomecánico": {
+          "exists": true,
+          "rowCount": 12
+        },
+        "Condiciones de Seguridad": {
+          "exists": true,
+          "rowCount": 113
+        },
+        "Fenómenos naturales": {
+          "exists": true,
+          "rowCount": 5
+        }
+      }
+    },
+    "errors": [],
+    "sampleData": [
+      {
+        "proceso": "Gestión Administrativa",
+        "actividad": "Manejo de documentos",
+        "subactividad": "Archivo de documentos físicos",
+        "frecuencia": "Rutinaria",
+        "personal_involucrado": "Directo",
+        "cargo": "Auxiliar Administrativo",
+        "area_empresa": "Administración",
+        "peligro": "Biomecánico",
+        "descripcion_peligro": "Postura",
+        "descripcion_especifica_peligro": "Prolongada mantenida",
+        "consecuencia_efecto_posible": "Dolor lumbar, fatiga muscular",
+        "controles_existentes_fuente": "Silla ergonómica ajustable",
+        "controles_existentes_medio": "Pausas activas programadas",
+        "controles_existentes_individuo": "Capacitación en higiene postural",
+        "nivel_deficiencia_ND": "6",
+        "nivel_exposicion_NE": "3",
+        "valor_consecuencia_NC": "25"
+      }
+    ],
+    "sheetNames": [
+      "Plantilla de Carga",
+      "Listas de Validacion",
+      "Biológico",
+      "Físico",
+      "Químico",
+      "Psicosocial",
+      "Biomecánico",
+      "Condiciones de Seguridad",
+      "Fenómenos naturales"
+    ]
+  },
+  "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Correcto.xlsx": {
+    "fileName": "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Correcto.xlsx",
+    "sheets": {
+      "main": {
+        "exists": true,
+        "rowCount": 7,
+        "columns": [
+          "proceso",
+          "actividad",
+          "subactividad",
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "area_empresa",
+          "peligro",
+          "descripcion_peligro",
+          "descripcion_especifica_peligro",
+          "consecuencia_efecto_posible",
+          "controles_existentes_fuente",
+          "controles_existentes_medio",
+          "controles_existentes_individuo",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "validationLists": {
+        "exists": true,
+        "rowCount": 13,
+        "columns": [
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "areas_empresa",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "hazardCatalogs": {
+        "Biológico": {
+          "exists": true,
+          "rowCount": 8
+        },
+        "Físico": {
+          "exists": true,
+          "rowCount": 51
+        },
+        "Químico": {
+          "exists": true,
+          "rowCount": 21
+        },
+        "Psicosocial": {
+          "exists": true,
+          "rowCount": 87
+        },
+        "Biomecánico": {
+          "exists": true,
+          "rowCount": 12
+        },
+        "Condiciones de Seguridad": {
+          "exists": true,
+          "rowCount": 113
+        },
+        "Fenómenos naturales": {
+          "exists": true,
+          "rowCount": 5
+        }
+      }
+    },
+    "errors": [],
+    "sampleData": [
+      {
+        "proceso": "Gestión Administrativa",
+        "actividad": "Manejo de documentos",
+        "subactividad": "Archivo de documentos físicos",
+        "frecuencia": "Rutinaria",
+        "personal_involucrado": "Directo",
+        "cargo": "Asesor Comercial",
+        "area_empresa": "Área de procesamiento",
+        "peligro": "Biológico",
+        "descripcion_peligro": "Vírus",
+        "descripcion_especifica_peligro": "",
+        "consecuencia_efecto_posible": "Infecciones. Envenenamiento o efectos tóxicos",
+        "controles_existentes_fuente": "Silla ergonómica ajustable",
+        "controles_existentes_medio": "Pausas activas programadas",
+        "controles_existentes_individuo": "Capacitación en higiene postural",
+        "nivel_deficiencia_ND": 6,
+        "nivel_exposicion_NE": 3,
+        "valor_consecuencia_NC": 25
+      },
+      {
+        "proceso": "Proceso 2",
+        "actividad": "Actividad 2",
+        "subactividad": "Subactividad 2",
+        "frecuencia": "No Rutinaria",
+        "personal_involucrado": "Directo y Contratistas",
+        "cargo": "CEO",
+        "area_empresa": "Área de alistamiento",
+        "peligro": "Físico",
+        "descripcion_peligro": "Ruido",
+        "descripcion_especifica_peligro": "Impacto",
+        "consecuencia_efecto_posible": "Disconfor, Dolor de cabeza, Hipoacucia",
+        "controles_existentes_fuente": "Control 2",
+        "controles_existentes_medio": "Control 2",
+        "controles_existentes_individuo": "Control 2",
+        "nivel_deficiencia_ND": 10,
+        "nivel_exposicion_NE": 4,
+        "valor_consecuencia_NC": 100
+      },
+      {
+        "proceso": "Proceso 3",
+        "actividad": "Actividad 3",
+        "subactividad": "Subactividad 3",
+        "frecuencia": "No Rutinaria",
+        "personal_involucrado": "Directo, Contratistas y en Misión",
+        "cargo": "CMO",
+        "area_empresa": "Obra de prueba contratante",
+        "peligro": "Químico",
+        "descripcion_peligro": "Polvos orgánicos",
+        "descripcion_especifica_peligro": "Naturales (polen, madera, algodòn, plumas, granos)",
+        "consecuencia_efecto_posible": "Irritación respiratoria, traqueítis, bronquitis, neumonitis, enfisema y\r\nedema pulmonar",
+        "controles_existentes_fuente": "Control 3",
+        "controles_existentes_medio": "Control 3",
+        "controles_existentes_individuo": "Control 3",
+        "nivel_deficiencia_ND": 6,
+        "nivel_exposicion_NE": 3,
+        "valor_consecuencia_NC": 60
+      }
+    ],
+    "sheetNames": [
+      "Plantilla de Carga",
+      "Listas de Validacion",
+      "Biológico",
+      "Físico",
+      "Químico",
+      "Psicosocial",
+      "Biomecánico",
+      "Condiciones de Seguridad",
+      "Fenómenos naturales"
+    ]
+  },
+  "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Error sin catalogo.xlsx": {
+    "fileName": "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Error sin catalogo.xlsx",
+    "sheets": {
+      "main": {
+        "exists": true,
+        "rowCount": 1,
+        "columns": [
+          "proceso",
+          "actividad",
+          "subactividad",
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "area_empresa",
+          "peligro",
+          "descripcion_peligro",
+          "descripcion_especifica_peligro",
+          "consecuencia_efecto_posible",
+          "controles_existentes_fuente",
+          "controles_existentes_medio",
+          "controles_existentes_individuo",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "validationLists": {
+        "exists": true,
+        "rowCount": 13,
+        "columns": [
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "areas_empresa",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "hazardCatalogs": {
+        "Biológico": {
+          "exists": false
+        },
+        "Físico": {
+          "exists": true,
+          "rowCount": 51
+        },
+        "Químico": {
+          "exists": true,
+          "rowCount": 21
+        },
+        "Psicosocial": {
+          "exists": true,
+          "rowCount": 87
+        },
+        "Biomecánico": {
+          "exists": true,
+          "rowCount": 12
+        },
+        "Condiciones de Seguridad": {
+          "exists": true,
+          "rowCount": 113
+        },
+        "Fenómenos naturales": {
+          "exists": true,
+          "rowCount": 5
+        }
+      }
+    },
+    "errors": [
+      {
+        "type": "MISSING_CATALOG",
+        "catalog": "Biológico"
+      }
+    ],
+    "sampleData": [
+      {
+        "proceso": "Gestión Administrativa",
+        "actividad": "Manejo de documentos",
+        "subactividad": "Archivo de documentos físicos",
+        "frecuencia": "Rutinaria",
+        "personal_involucrado": "Directo",
+        "cargo": "Auxiliar Administrativo",
+        "area_empresa": "Administración",
+        "peligro": "Biomecánico",
+        "descripcion_peligro": "Postura",
+        "descripcion_especifica_peligro": "Prolongada mantenida",
+        "consecuencia_efecto_posible": "Dolor lumbar, fatiga muscular",
+        "controles_existentes_fuente": "Silla ergonómica ajustable",
+        "controles_existentes_medio": "Pausas activas programadas",
+        "controles_existentes_individuo": "Capacitación en higiene postural",
+        "nivel_deficiencia_ND": "6",
+        "nivel_exposicion_NE": "3",
+        "valor_consecuencia_NC": "25"
+      }
+    ],
+    "sheetNames": [
+      "Plantilla de Carga",
+      "Listas de Validacion",
+      "Físico",
+      "Químico",
+      "Psicosocial",
+      "Biomecánico",
+      "Condiciones de Seguridad",
+      "Fenómenos naturales"
+    ]
+  },
+  "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Error sin lista de validacion.xlsx": {
+    "fileName": "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Error sin lista de validacion.xlsx",
+    "sheets": {
+      "main": {
+        "exists": true,
+        "rowCount": 1,
+        "columns": [
+          "proceso",
+          "actividad",
+          "subactividad",
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "area_empresa",
+          "peligro",
+          "descripcion_peligro",
+          "descripcion_especifica_peligro",
+          "consecuencia_efecto_posible",
+          "controles_existentes_fuente",
+          "controles_existentes_medio",
+          "controles_existentes_individuo",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "validationLists": {
+        "exists": false
+      },
+      "hazardCatalogs": {
+        "Biológico": {
+          "exists": true,
+          "rowCount": 8
+        },
+        "Físico": {
+          "exists": true,
+          "rowCount": 51
+        },
+        "Químico": {
+          "exists": true,
+          "rowCount": 21
+        },
+        "Psicosocial": {
+          "exists": true,
+          "rowCount": 87
+        },
+        "Biomecánico": {
+          "exists": true,
+          "rowCount": 12
+        },
+        "Condiciones de Seguridad": {
+          "exists": true,
+          "rowCount": 113
+        },
+        "Fenómenos naturales": {
+          "exists": true,
+          "rowCount": 5
+        }
+      }
+    },
+    "errors": [
+      {
+        "type": "MISSING_SHEET",
+        "sheet": "Listas de Validacion"
+      }
+    ],
+    "sampleData": [
+      {
+        "proceso": "Gestión Administrativa",
+        "actividad": "Manejo de documentos",
+        "subactividad": "Archivo de documentos físicos",
+        "frecuencia": "Rutinaria",
+        "personal_involucrado": "Directo",
+        "cargo": "Auxiliar Administrativo",
+        "area_empresa": "Administración",
+        "peligro": "Biomecánico",
+        "descripcion_peligro": "Postura",
+        "descripcion_especifica_peligro": "Prolongada mantenida",
+        "consecuencia_efecto_posible": "Dolor lumbar, fatiga muscular",
+        "controles_existentes_fuente": "Silla ergonómica ajustable",
+        "controles_existentes_medio": "Pausas activas programadas",
+        "controles_existentes_individuo": "Capacitación en higiene postural",
+        "nivel_deficiencia_ND": "6",
+        "nivel_exposicion_NE": "3",
+        "valor_consecuencia_NC": "25"
+      }
+    ],
+    "sheetNames": [
+      "Plantilla de Carga",
+      "Biológico",
+      "Físico",
+      "Químico",
+      "Psicosocial",
+      "Biomecánico",
+      "Condiciones de Seguridad",
+      "Fenómenos naturales"
+    ]
+  },
+  "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Error sin plantilla.xlsx": {
+    "fileName": "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Error sin plantilla.xlsx",
+    "sheets": {
+      "main": {
+        "exists": false
+      },
+      "validationLists": {
+        "exists": true,
+        "rowCount": 13,
+        "columns": [
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "areas_empresa",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "hazardCatalogs": {
+        "Biológico": {
+          "exists": true,
+          "rowCount": 8
+        },
+        "Físico": {
+          "exists": true,
+          "rowCount": 51
+        },
+        "Químico": {
+          "exists": true,
+          "rowCount": 21
+        },
+        "Psicosocial": {
+          "exists": true,
+          "rowCount": 87
+        },
+        "Biomecánico": {
+          "exists": true,
+          "rowCount": 12
+        },
+        "Condiciones de Seguridad": {
+          "exists": true,
+          "rowCount": 113
+        },
+        "Fenómenos naturales": {
+          "exists": true,
+          "rowCount": 5
+        }
+      }
+    },
+    "errors": [
+      {
+        "type": "MISSING_SHEET",
+        "sheet": "Plantilla de Carga"
+      }
+    ],
+    "sampleData": [],
+    "sheetNames": [
+      "Listas de Validacion",
+      "Biológico",
+      "Físico",
+      "Químico",
+      "Psicosocial",
+      "Biomecánico",
+      "Condiciones de Seguridad",
+      "Fenómenos naturales"
+    ]
+  },
+  "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Errores de tipos.xlsx": {
+    "fileName": "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Errores de tipos.xlsx",
+    "sheets": {
+      "main": {
+        "exists": true,
+        "rowCount": 12,
+        "columns": [
+          "proceso",
+          "actividad",
+          "subactividad",
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "area_empresa",
+          "peligro",
+          "descripcion_peligro",
+          "descripcion_especifica_peligro",
+          "consecuencia_efecto_posible",
+          "controles_existentes_fuente",
+          "controles_existentes_medio",
+          "controles_existentes_individuo",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "validationLists": {
+        "exists": true,
+        "rowCount": 13,
+        "columns": [
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "areas_empresa",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "hazardCatalogs": {
+        "Biológico": {
+          "exists": true,
+          "rowCount": 8
+        },
+        "Físico": {
+          "exists": true,
+          "rowCount": 51
+        },
+        "Químico": {
+          "exists": true,
+          "rowCount": 21
+        },
+        "Psicosocial": {
+          "exists": true,
+          "rowCount": 87
+        },
+        "Biomecánico": {
+          "exists": true,
+          "rowCount": 12
+        },
+        "Condiciones de Seguridad": {
+          "exists": true,
+          "rowCount": 113
+        },
+        "Fenómenos naturales": {
+          "exists": true,
+          "rowCount": 5
+        }
+      }
+    },
+    "errors": [],
+    "sampleData": [
+      {
+        "proceso": "Gestión Administrativa",
+        "actividad": "Manejo de documentos",
+        "subactividad": "Archivo de documentos físicos",
+        "frecuencia": "Rutinaria",
+        "personal_involucrado": "Directo",
+        "cargo": "Asesor Comercial",
+        "area_empresa": "Área de procesamiento",
+        "peligro": "Biológico",
+        "descripcion_peligro": "Vírus",
+        "descripcion_especifica_peligro": "",
+        "consecuencia_efecto_posible": "Infecciones. Envenenamiento o efectos tóxicos",
+        "controles_existentes_fuente": "Silla ergonómica ajustable",
+        "controles_existentes_medio": "Pausas activas programadas",
+        "controles_existentes_individuo": "Capacitación en higiene postural",
+        "nivel_deficiencia_ND": 6,
+        "nivel_exposicion_NE": 3,
+        "valor_consecuencia_NC": 25
+      },
+      {
+        "proceso": "Proceso 2",
+        "actividad": "Actividad 2",
+        "subactividad": "Subactividad 2",
+        "frecuencia": "No Rutinaria",
+        "personal_involucrado": "Directo y Contratistas",
+        "cargo": "CEO",
+        "area_empresa": "Área de alistamiento",
+        "peligro": "Físico",
+        "descripcion_peligro": "Ruido",
+        "descripcion_especifica_peligro": "Impacto",
+        "consecuencia_efecto_posible": "Disconfor, Dolor de cabeza, Hipoacucia",
+        "controles_existentes_fuente": "Control 2",
+        "controles_existentes_medio": "Control 2",
+        "controles_existentes_individuo": "Control 2",
+        "nivel_deficiencia_ND": 10,
+        "nivel_exposicion_NE": 4,
+        "valor_consecuencia_NC": 100
+      },
+      {
+        "proceso": "Proceso 3",
+        "actividad": "Actividad 3",
+        "subactividad": "Subactividad 3",
+        "frecuencia": "No Rutinaria",
+        "personal_involucrado": "Directo, Contratistas y en Misión",
+        "cargo": "CMO",
+        "area_empresa": "Obra de prueba contratante",
+        "peligro": "Químico",
+        "descripcion_peligro": "Polvos orgánicos",
+        "descripcion_especifica_peligro": "Naturales (polen, madera, algodòn, plumas, granos)",
+        "consecuencia_efecto_posible": "Irritación respiratoria, traqueítis, bronquitis, neumonitis, enfisema y\r\nedema pulmonar",
+        "controles_existentes_fuente": "Control 3",
+        "controles_existentes_medio": "Control 3",
+        "controles_existentes_individuo": "Control 3",
+        "nivel_deficiencia_ND": 6,
+        "nivel_exposicion_NE": 3,
+        "valor_consecuencia_NC": 60
+      }
+    ],
+    "sheetNames": [
+      "Plantilla de Carga",
+      "Listas de Validacion",
+      "Biológico",
+      "Físico",
+      "Químico",
+      "Psicosocial",
+      "Biomecánico",
+      "Condiciones de Seguridad",
+      "Fenómenos naturales"
+    ]
+  },
+  "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Repetidos.xlsx": {
+    "fileName": "PlantillaMatrizIPEVR_10_Company_1_2025-11-10 - Repetidos.xlsx",
+    "sheets": {
+      "main": {
+        "exists": true,
+        "rowCount": 13,
+        "columns": [
+          "proceso",
+          "actividad",
+          "subactividad",
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "area_empresa",
+          "peligro",
+          "descripcion_peligro",
+          "descripcion_especifica_peligro",
+          "consecuencia_efecto_posible",
+          "controles_existentes_fuente",
+          "controles_existentes_medio",
+          "controles_existentes_individuo",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "validationLists": {
+        "exists": true,
+        "rowCount": 13,
+        "columns": [
+          "frecuencia",
+          "personal_involucrado",
+          "cargo",
+          "areas_empresa",
+          "nivel_deficiencia_ND",
+          "nivel_exposicion_NE",
+          "valor_consecuencia_NC"
+        ]
+      },
+      "hazardCatalogs": {
+        "Biológico": {
+          "exists": true,
+          "rowCount": 8
+        },
+        "Físico": {
+          "exists": true,
+          "rowCount": 51
+        },
+        "Químico": {
+          "exists": true,
+          "rowCount": 21
+        },
+        "Psicosocial": {
+          "exists": true,
+          "rowCount": 87
+        },
+        "Biomecánico": {
+          "exists": true,
+          "rowCount": 12
+        },
+        "Condiciones de Seguridad": {
+          "exists": true,
+          "rowCount": 113
+        },
+        "Fenómenos naturales": {
+          "exists": true,
+          "rowCount": 5
+        }
+      }
+    },
+    "errors": [],
+    "sampleData": [
+      {
+        "proceso": "Proceso 1",
+        "actividad": "Actividad 1",
+        "subactividad": "Subactividad 1",
+        "frecuencia": "No Rutinaria",
+        "personal_involucrado": "Directo y Contratistas",
+        "cargo": "Auxiliar Administrativo",
+        "area_empresa": "Área de alistamiento",
+        "peligro": "Biológico",
+        "descripcion_peligro": "Ricketsias",
+        "descripcion_especifica_peligro": "Rayos alfa",
+        "consecuencia_efecto_posible": "Lesiones vasculíticas cutáneas, afectación hepática, renal o gastrointestinal",
+        "controles_existentes_fuente": "Control 1",
+        "controles_existentes_medio": "Control 1",
+        "controles_existentes_individuo": "Control 1",
+        "nivel_deficiencia_ND": 6,
+        "nivel_exposicion_NE": 3,
+        "valor_consecuencia_NC": 60
+      },
+      {
+        "proceso": "Proceso 1",
+        "actividad": "Actividad 1",
+        "subactividad": "Subactividad 1",
+        "frecuencia": "Rutinaria",
+        "personal_involucrado": "Directo",
+        "cargo": "CEO",
+        "area_empresa": "Área de alistamiento",
+        "peligro": "Físico",
+        "descripcion_peligro": "Ruido",
+        "descripcion_especifica_peligro": "Impacto",
+        "consecuencia_efecto_posible": "Disconfor, Dolor de cabeza, Hipoacucia",
+        "controles_existentes_fuente": "Control 2",
+        "controles_existentes_medio": "Control 2",
+        "controles_existentes_individuo": "Control 2",
+        "nivel_deficiencia_ND": 10,
+        "nivel_exposicion_NE": 4,
+        "valor_consecuencia_NC": 100
+      },
+      {
+        "proceso": "Proceso 1",
+        "actividad": "Actividad 1",
+        "subactividad": "Subactividad 1",
+        "frecuencia": "No Rutinaria",
+        "personal_involucrado": "Contratistas",
+        "cargo": "CMO",
+        "area_empresa": "Obra de prueba contratante",
+        "peligro": "Químico",
+        "descripcion_peligro": "Polvos inorganicos",
+        "descripcion_especifica_peligro": "Silìceos (cemento, asbesto, marmol, cuarzo)",
+        "consecuencia_efecto_posible": "Neumoconiosis: Siderosis, aluminosis, beriliosis, etc. Alergia: asma profesional y alveolitis alérgica extrínseca",
+        "controles_existentes_fuente": "Control 3",
+        "controles_existentes_medio": "Control 3",
+        "controles_existentes_individuo": "Control 3",
+        "nivel_deficiencia_ND": 6,
+        "nivel_exposicion_NE": 3,
+        "valor_consecuencia_NC": 60
+      }
+    ],
+    "sheetNames": [
+      "Plantilla de Carga",
+      "Listas de Validacion",
+      "Biológico",
+      "Físico",
+      "Químico",
+      "Psicosocial",
+      "Biomecánico",
+      "Condiciones de Seguridad",
+      "Fenómenos naturales"
+    ]
+  }
+}

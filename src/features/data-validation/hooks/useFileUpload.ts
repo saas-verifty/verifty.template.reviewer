@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 
 import { parseExcelFile } from '../services/parseExcelFile.service'
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
+import { getMaxFileSizeMB } from '@/config/fileUpload.config'
 
 import type { ParsedExcelData } from '../types/excel.types'
 
@@ -20,7 +21,7 @@ export default function useFileUpload() {
       return ERROR_MESSAGES.FILE_FORMAT_UNSUPPORTED
     }
 
-    const maxSizeMB = Number(import.meta.env.VITE_MAX_FILE_SIZE_MB) || 50
+    const maxSizeMB = getMaxFileSizeMB()
     const maxSizeBytes = maxSizeMB * 1024 * 1024
 
     if (file.size > maxSizeBytes) {
