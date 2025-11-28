@@ -75,7 +75,9 @@ export function ErrorSummary({ table }: Props) {
                 {rowErrors.map((e) => e.columnName).join(', ')}
               </span>
               {rowErrors[0].message && (
-                <span className="text-body-subtle ml-1">— {rowErrors[0].message}</span>
+                <span className="text-body-subtle ml-1">
+                  — {rowErrors[0].message}
+                </span>
               )}
             </div>
           ))}

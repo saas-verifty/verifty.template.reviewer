@@ -36,8 +36,12 @@ export function generateJSON(table: TableData): IPEVRJsonOutput {
     const cells = row.cells
 
     const procesoNombre = String(getCellValue(cells, 'proceso') ?? '').trim()
-    const actividadNombre = String(getCellValue(cells, 'actividad') ?? '').trim()
-    const subactividadNombre = String(getCellValue(cells, 'subactividad') ?? '').trim()
+    const actividadNombre = String(
+      getCellValue(cells, 'actividad') ?? ''
+    ).trim()
+    const subactividadNombre = String(
+      getCellValue(cells, 'subactividad') ?? ''
+    ).trim()
 
     if (!procesoNombre || !actividadNombre || !subactividadNombre) {
       // Saltar filas incompletas
@@ -64,12 +68,16 @@ export function generateJSON(table: TableData): IPEVRJsonOutput {
     }
 
     // Buscar o crear subactividad dentro de la actividad
-    let subactividad = actividad.subactividad.find((s) => s.nombre === subactividadNombre)
+    let subactividad = actividad.subactividad.find(
+      (s) => s.nombre === subactividadNombre
+    )
     if (!subactividad) {
       subactividad = {
         nombre: subactividadNombre,
         frecuencia: String(getCellValue(cells, 'frecuencia') ?? ''),
-        personal_involucrado: String(getCellValue(cells, 'personal_involucrado') ?? ''),
+        personal_involucrado: String(
+          getCellValue(cells, 'personal_involucrado') ?? ''
+        ),
         cargo: String(getCellValue(cells, 'cargo') ?? ''),
         area_empresa: String(getCellValue(cells, 'area_empresa') ?? ''),
         peligros: [],
@@ -80,15 +88,31 @@ export function generateJSON(table: TableData): IPEVRJsonOutput {
     // Crear el peligro y agregarlo a la subactividad
     const peligro: PeligroOutput = {
       nombre: String(getCellValue(cells, 'peligro') ?? ''),
-      descripcion_peligro: String(getCellValue(cells, 'descripcion_peligro') ?? ''),
-      descripcion_especifica_peligro: String(getCellValue(cells, 'descripcion_especifica_peligro') ?? ''),
-      consecuencia_efecto_posible: String(getCellValue(cells, 'consecuencia_efecto_posible') ?? ''),
-      controles_existentes_fuente: String(getCellValue(cells, 'controles_existentes_fuente') ?? ''),
-      controles_existentes_medio: String(getCellValue(cells, 'controles_existentes_medio') ?? ''),
-      controles_existentes_individuo: String(getCellValue(cells, 'controles_existentes_individuo') ?? ''),
-      nivel_deficiencia_ND: toNumber(getCellValue(cells, 'nivel_deficiencia_ND')),
+      descripcion_peligro: String(
+        getCellValue(cells, 'descripcion_peligro') ?? ''
+      ),
+      descripcion_especifica_peligro: String(
+        getCellValue(cells, 'descripcion_especifica_peligro') ?? ''
+      ),
+      consecuencia_efecto_posible: String(
+        getCellValue(cells, 'consecuencia_efecto_posible') ?? ''
+      ),
+      controles_existentes_fuente: String(
+        getCellValue(cells, 'controles_existentes_fuente') ?? ''
+      ),
+      controles_existentes_medio: String(
+        getCellValue(cells, 'controles_existentes_medio') ?? ''
+      ),
+      controles_existentes_individuo: String(
+        getCellValue(cells, 'controles_existentes_individuo') ?? ''
+      ),
+      nivel_deficiencia_ND: toNumber(
+        getCellValue(cells, 'nivel_deficiencia_ND')
+      ),
       nivel_exposicion_NE: toNumber(getCellValue(cells, 'nivel_exposicion_NE')),
-      nivel_consecuencia_NC: toNumber(getCellValue(cells, 'valor_consecuencia_NC')),
+      nivel_consecuencia_NC: toNumber(
+        getCellValue(cells, 'valor_consecuencia_NC')
+      ),
     }
 
     subactividad.peligros.push(peligro)

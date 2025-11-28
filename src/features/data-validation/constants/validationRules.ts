@@ -93,7 +93,10 @@ export const CATALOG_FIELDS: Record<
   area_empresa: { type: 'validationList', key: 'areas_empresa' },
   nivel_deficiencia_ND: { type: 'validationList', key: 'nivel_deficiencia_ND' },
   nivel_exposicion_NE: { type: 'validationList', key: 'nivel_exposicion_NE' },
-  valor_consecuencia_NC: { type: 'validationList', key: 'valor_consecuencia_NC' },
+  valor_consecuencia_NC: {
+    type: 'validationList',
+    key: 'valor_consecuencia_NC',
+  },
 }
 
 // Campos de peligro que se validan dinámicamente según el tipo de peligro
@@ -104,11 +107,11 @@ export const HAZARD_DYNAMIC_FIELDS = [
 
 // Mapeo de tipo de peligro (con acentos) a key del catálogo (sin acentos)
 export const HAZARD_TYPE_TO_CATALOG_KEY: Record<string, string> = {
-  'Biológico': 'biologico',
-  'Físico': 'fisico',
-  'Químico': 'quimico',
-  'Psicosocial': 'psicosocial',
-  'Biomecánico': 'biomecanico',
+  Biológico: 'biologico',
+  Físico: 'fisico',
+  Químico: 'quimico',
+  Psicosocial: 'psicosocial',
+  Biomecánico: 'biomecanico',
   'Condiciones de Seguridad': 'condiciones_seguridad',
   'Fenómenos naturales': 'fenomenos_naturales',
 }

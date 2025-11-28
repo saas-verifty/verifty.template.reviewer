@@ -46,7 +46,10 @@ class APIClient {
     )
   }
 
-  async get<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  async get<T = unknown>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> {
     return this.instance.get<T>(url, config)
   }
 
@@ -74,7 +77,10 @@ class APIClient {
     return this.instance.patch<T>(url, data, config)
   }
 
-  async delete<T = unknown>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+  async delete<T = unknown>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> {
     return this.instance.delete<T>(url, config)
   }
 }

@@ -43,7 +43,9 @@ export const FileUploader = ({ onFileSelected, disable }: Props) => {
 
   return (
     <div className="w-full max-w-xl">
-      <p className="text-body text-sm mb-2">{UI_MESSAGES.FILE_UPLOADER.ALLOWED_FORMATS}</p>
+      <p className="text-body text-sm mb-2">
+        {UI_MESSAGES.FILE_UPLOADER.ALLOWED_FORMATS}
+      </p>
       <div
         onClick={handleClick}
         onDragOver={handleDragOver}
@@ -57,7 +59,14 @@ export const FileUploader = ({ onFileSelected, disable }: Props) => {
         `}
       >
         <div className="text-body-subtle">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="17 8 12 3 7 8" />
             <line x1="12" y1="3" x2="12" y2="15" />
@@ -68,14 +77,23 @@ export const FileUploader = ({ onFileSelected, disable }: Props) => {
           {UI_MESSAGES.FILE_UPLOADER.DROP_OR_CLICK}
         </p>
 
-        <p className="text-body-subtle text-sm">{UI_MESSAGES.FILE_UPLOADER.MAX_FILE_SIZE}</p>
+        <p className="text-body-subtle text-sm">
+          {UI_MESSAGES.FILE_UPLOADER.MAX_FILE_SIZE}
+        </p>
 
         <button
           type="button"
           disabled={disable}
           className="px-6 py-2 bg-bg-purple text-white rounded-full font-medium hover:opacity-90 disabled:opacity-50 transition-colors flex items-center gap-2"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>

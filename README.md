@@ -15,7 +15,7 @@ Sistema de carga masiva y validación de archivos Excel para matrices IPEVR.
 - React 18 + TypeScript
 - Vite
 - Tailwind CSS
-- AWS SDK v3
+- Axios
 - ExcelJS
 - Jest + React Testing Library
 
@@ -37,14 +37,15 @@ npm run dev
 ```bash
 # Feature Flags
 VITE_FEATURE_BULK_UPLOAD_ENABLED=true
-VITE_AWS_UPLOAD_ENABLED=false  # false = descarga local, true = S3
+VITE_AWS_UPLOAD_ENABLED=true         # false = descarga local, true = S3
 
-# AWS S3 (opcional)
-VITE_AWS_REGION=us-east-1
-VITE_AWS_ACCESS_KEY_ID=your_key
-VITE_AWS_SECRET_ACCESS_KEY=your_secret
-VITE_S3_BUCKET_NAME=your-bucket
-VITE_MAX_FILE_SIZE_MB=50
+# API Configuration
+VITE_API_BASE_URL=http://localhost:3001/api
+VITE_MAX_FILE_SIZE_MB=5
+VITE_DATA_SOURCE=test                # test, v1, etc. (para endpoint)
+
+# WeWeb Integration
+VITE_WEWEB_REDIRECT_URL=https://your-weweb-app.com/success
 ```
 
 ## 🐳 Docker
@@ -73,10 +74,31 @@ Variables de entorno en `docker-compose.yml` bajo `build.args`.
 
 ### Flujo de Trabajo
 
-1. Cargar archivo Excel (drag & drop o botón)
-2. Revisar validación automática
-3. Editar celdas con errores
-4. Enviar para generar JSON
+1. **WeWeb redirecciona** a la app con `?token=xxx`
+2. Usuario **carga archivo Excel** (drag & drop o botón)
+3. **Validación automática** en tiempo real
+4. Usuario **edita celdas** con errores si es necesario
+5. Usuario **confirma envío**:
+   - App solicita **presigned URL** al backend: `GET /ipevr_file_uploads?x-data-source=test&token=xxx`
+   - Backend responde con `{ signedUrl, file_key }`
+   - App **sube JSON a S3** usando presigned URL
+   - App **redirige a WeWeb** con: `token`, `file_name`, `file_size`
+
+### Integración Backend
+
+El backend debe implementar:
+
+**Endpoint:** `GET /ipevr_file_uploads?x-data-source={source}&token={token}`
+
+**Response:**
+```json
+{
+  "signedUrl": "https://bucket.s3.amazonaws.com/...",
+  "file_key": "verifty.template.reviewer/file.json"
+}
+```
+
+La presigned URL permite subir directamente a S3 sin exponer credenciales AWS en el frontend.
 
 ## 🛠️ Scripts
 

@@ -34,7 +34,10 @@ export function SelectCell({ cell, options, onChange }: Props) {
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false)
         setSearch('')
       }
@@ -83,7 +86,9 @@ export function SelectCell({ cell, options, onChange }: Props) {
           />
           <div className="absolute top-full left-0 right-0 max-h-48 overflow-y-auto bg-white border border-bg-gray rounded-b-lg shadow-lg">
             {filteredOptions.length === 0 ? (
-              <div className="px-4 py-2 text-body-subtle text-sm">{UI_MESSAGES.NO_RESULTS}</div>
+              <div className="px-4 py-2 text-body-subtle text-sm">
+                {UI_MESSAGES.NO_RESULTS}
+              </div>
             ) : (
               filteredOptions.map((opt) => (
                 <div
@@ -98,7 +103,9 @@ export function SelectCell({ cell, options, onChange }: Props) {
           </div>
         </div>
       ) : (
-        <span className={`block truncate ${textClass}`}>{cell.value ?? ''}</span>
+        <span className={`block truncate ${textClass}`}>
+          {cell.value ?? ''}
+        </span>
       )}
     </td>
   )

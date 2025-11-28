@@ -1,10 +1,7 @@
 import { useState, useCallback } from 'react'
 import { TableData } from '../types/table.types'
 import { ParsedExcelData } from '../types/excel.types'
-import {
-  ValidationState,
-  ValidationResult,
-} from '../types/validation.types'
+import { ValidationState, ValidationResult } from '../types/validation.types'
 import { validateTable } from '../services/validation.service'
 import { buildValidationSummary } from '../utils/errorFormatter'
 
@@ -23,7 +20,12 @@ export function useValidation() {
       tableData: TableData,
       parsedData: ParsedExcelData
     ): Promise<ValidationResult | null> => {
-      setState({ status: 'validating', progress: 0, result: undefined, error: undefined })
+      setState({
+        status: 'validating',
+        progress: 0,
+        result: undefined,
+        error: undefined,
+      })
 
       try {
         // Simular progreso para UX (validación es síncrona pero puede tomar tiempo)
@@ -44,7 +46,8 @@ export function useValidation() {
 
         return result
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Error de validación desconocido'
+        const errorMessage =
+          err instanceof Error ? err.message : 'Error de validación desconocido'
         setState({
           status: 'error',
           progress: 0,

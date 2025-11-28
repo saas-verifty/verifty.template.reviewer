@@ -10,7 +10,13 @@ type Props = {
   loading?: boolean
 }
 
-export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading = false }: Props) {
+export function ConfirmationModal({
+  isOpen,
+  onConfirm,
+  onCancel,
+  table,
+  loading = false,
+}: Props) {
   const totalRows = table.length
   const editedRows = table.filter((row) => row.isEdited).length
 
@@ -44,7 +50,14 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
           disabled={loading}
           className="absolute top-4 right-4 text-body-subtle hover:text-body disabled:opacity-50"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
@@ -52,7 +65,15 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
 
         <div className="flex flex-col items-center text-center">
           <div className="w-12 h-12 rounded-full bg-bg-tertiary flex items-center justify-center mb-4">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-body-subtle">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-body-subtle"
+            >
               <circle cx="12" cy="12" r="10" />
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
@@ -66,7 +87,10 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
           <p className="text-body mb-4">
             Estás a punto de enviar {totalRows} {UI_MESSAGES.RECORD(totalRows)}
             {editedRows > 0 && (
-              <span className="text-fg-purple"> ({editedRows} {UI_MESSAGES.EDITED(editedRows)})</span>
+              <span className="text-fg-purple">
+                {' '}
+                ({editedRows} {UI_MESSAGES.EDITED(editedRows)})
+              </span>
             )}
           </p>
 
@@ -74,7 +98,9 @@ export function ConfirmationModal({ isOpen, onConfirm, onCancel, table, loading 
             <div className="w-full mb-4">
               <div className="flex items-center justify-center gap-3 py-2">
                 <div className="w-5 h-5 border-2 border-bg-purple border-t-transparent rounded-full animate-spin"></div>
-                <span className="text-body text-sm">{UI_MESSAGES.PROCESSING}</span>
+                <span className="text-body text-sm">
+                  {UI_MESSAGES.PROCESSING}
+                </span>
               </div>
             </div>
           )}

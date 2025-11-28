@@ -59,8 +59,12 @@ function getCellValue(cell: unknown): unknown {
  */
 function validateHierarchy(row: any): string | null {
   const proceso = normalizeValue(getCellValue(row[HIERARCHY_FIELDS.proceso]))
-  const actividad = normalizeValue(getCellValue(row[HIERARCHY_FIELDS.actividad]))
-  const subactividad = normalizeValue(getCellValue(row[HIERARCHY_FIELDS.subactividad]))
+  const actividad = normalizeValue(
+    getCellValue(row[HIERARCHY_FIELDS.actividad])
+  )
+  const subactividad = normalizeValue(
+    getCellValue(row[HIERARCHY_FIELDS.subactividad])
+  )
   const peligro = normalizeValue(getCellValue(row[HIERARCHY_FIELDS.peligro]))
 
   if (!proceso && (actividad || subactividad || peligro)) {
@@ -166,8 +170,12 @@ function validateRow(
 
     const hazardResult = validateHazardRow(catalogIndex, catalogKey, {
       descripcion_peligro: getCellValue(row['descripcion_peligro']),
-      descripcion_especifica_peligro: getCellValue(row['descripcion_especifica_peligro']),
-      consecuencia_efecto_posible: getCellValue(row['consecuencia_efecto_posible']),
+      descripcion_especifica_peligro: getCellValue(
+        row['descripcion_especifica_peligro']
+      ),
+      consecuencia_efecto_posible: getCellValue(
+        row['consecuencia_efecto_posible']
+      ),
     })
 
     if (!hazardResult.valid) {
@@ -176,7 +184,9 @@ function validateRow(
           rowIndex,
           columnName: field,
           errorType: 'catalog_not_found',
-          errorMessage: hazardResult.message ?? `Campo inválido en catálogo de ${tipoPeligro}`,
+          errorMessage:
+            hazardResult.message ??
+            `Campo inválido en catálogo de ${tipoPeligro}`,
         })
       }
     }

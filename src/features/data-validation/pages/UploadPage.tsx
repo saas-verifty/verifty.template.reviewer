@@ -13,12 +13,14 @@ import { Loader } from '@/components/Loader'
 import { FeatureDisabled } from '@/components/FeatureDisabled'
 import { generateJSON } from '../services/jsonGenerator.service'
 import { uploadToS3 } from '../services/s3Upload.service'
+import { getPresignedUrl } from '../services/presignedUrl.service'
 import {
   isFeatureEnabled,
   FEATURE_DISABLED_MESSAGES,
 } from '../../../config/featureFlags.config'
 import { UI_MESSAGES } from '@/constants/uiMessages'
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
+import { redirectToWeWeb, getTokenFromQuery } from '@/utils/wewebRedirect'
 
 export default function UploadPage() {
   const { file, data, handleFile, loading, error, clear } = useFileUpload()
@@ -37,6 +39,10 @@ export default function UploadPage() {
     message: string
   } | null>(null)
 
+  // Obtener el token del query string (viene de WeWeb)
+  const wewebToken = getTokenFromQuery()
+  const wewebRedirectUrl = import.meta.env.VITE_WEWEB_REDIRECT_URL
+
   useEffect(() => {
     if (data) initializeTable(data)
   }, [data, initializeTable])
@@ -49,6 +55,10 @@ export default function UploadPage() {
   const handleConfirmSubmit = async () => {
     setIsSubmitting(true)
 
+    // Usar el nombre del archivo original con extensión .json
+    const fileName =
+      file?.name.replace(/\.(xlsx|xls)$/i, '.json') || 'ipevr.json'
+
     try {
       // Generar JSON desde la tabla
       const jsonOutput = generateJSON(table)
@@ -56,26 +66,53 @@ export default function UploadPage() {
 
       console.log('JSON generado:', jsonOutput)
 
-      // Usar el nombre del archivo original con extensión .json
-      const fileName =
-        file?.name.replace(/\.(xlsx|xls)$/i, '.json') || 'ipevr.json'
-
       // Feature Flag: AWS Upload vs Local Download
       if (isFeatureEnabled('AWS_UPLOAD')) {
-        // Subir a AWS S3
-        const result = await uploadToS3(jsonString, fileName)
+        // Verificar que tenemos el token
+        if (!wewebToken) {
+          throw new Error('Token de autenticación no encontrado')
+        }
+
+        // 1. Obtener la URL pre-firmada y file_key del endpoint
+        const presignedResult = await getPresignedUrl(wewebToken)
+
+        if (!presignedResult.success || !presignedResult.signedUrl) {
+          throw new Error(
+            presignedResult.error || 'No se pudo obtener la URL de subida'
+          )
+        }
+
+        // 2. Subir a AWS S3 usando la URL pre-firmada
+        const result = await uploadToS3(
+          jsonString,
+          fileName,
+          presignedResult.signedUrl
+        )
 
         if (result.success) {
-          console.log('Archivo subido a S3:', result.fileUrl)
+          console.log('Archivo subido a S3 exitosamente')
           setIsModalOpen(false)
-          setAlert({
-            type: 'success',
-            message: UI_MESSAGES.SUBMIT_SUCCESS_S3,
-          })
-          clear()
-          clearTable()
+
+          // 3. Redirigir a WeWeb con token, filename y filesize
+          if (wewebRedirectUrl && result.fileName && result.fileSize) {
+            redirectToWeWeb(wewebRedirectUrl, {
+              token: wewebToken,
+              file_name: result.fileName,
+              file_size: result.fileSize,
+            })
+          } else {
+            // Fallback: mostrar alerta de éxito si no hay redirección
+            setAlert({
+              type: 'success',
+              message: UI_MESSAGES.SUBMIT_SUCCESS_S3,
+            })
+            clear()
+            clearTable()
+          }
         } else {
-          throw new Error(result.error || ERROR_MESSAGES.S3_UPLOAD_GENERIC_ERROR)
+          throw new Error(
+            result.error || ERROR_MESSAGES.S3_UPLOAD_GENERIC_ERROR
+          )
         }
       } else {
         // Descargar JSON localmente (para pruebas/desarrollo)
@@ -100,13 +137,26 @@ export default function UploadPage() {
       }
     } catch (error) {
       console.error('Error en submit:', error)
-      setAlert({
-        type: 'error',
-        message:
-          error instanceof Error
-            ? error.message
-            : UI_MESSAGES.SUBMIT_ERROR_FALLBACK,
-      })
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : UI_MESSAGES.SUBMIT_ERROR_FALLBACK
+
+      // Redirigir a WeWeb con error si tenemos token y URL configurada
+      if (wewebToken && wewebRedirectUrl) {
+        redirectToWeWeb(wewebRedirectUrl, {
+          token: wewebToken,
+          file_name: fileName,
+          file_size: 0,
+          error_message: errorMessage,
+        })
+      } else {
+        // Fallback: mostrar alerta de error si no hay redirección
+        setAlert({
+          type: 'error',
+          message: errorMessage,
+        })
+      }
     } finally {
       setIsSubmitting(false)
     }
@@ -141,10 +191,14 @@ export default function UploadPage() {
 
         <div className="mb-8">
           <h1 className="text-3xl font-semibold text-black mb-2">
-            {data ? UI_MESSAGES.DATA_REVIEW_TITLE : UI_MESSAGES.BULK_UPLOAD_TITLE}
+            {data
+              ? UI_MESSAGES.DATA_REVIEW_TITLE
+              : UI_MESSAGES.BULK_UPLOAD_TITLE}
           </h1>
           <p className="text-body">
-            {data ? UI_MESSAGES.DATA_REVIEW_SUBTITLE : UI_MESSAGES.UPLOAD_PAGE_SUBTITLE}
+            {data
+              ? UI_MESSAGES.DATA_REVIEW_SUBTITLE
+              : UI_MESSAGES.UPLOAD_PAGE_SUBTITLE}
           </p>
         </div>
         {loading && <Loader message={UI_MESSAGES.PROCESSING_FILE} />}
@@ -158,7 +212,14 @@ export default function UploadPage() {
           <div className="bg-white rounded-lg border border-bg-gray p-6">
             <div className="mb-4">
               <div className="flex items-center gap-2 text-sm text-body-subtle mb-4">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
                   <polyline points="13 2 13 9 20 9" />
                 </svg>

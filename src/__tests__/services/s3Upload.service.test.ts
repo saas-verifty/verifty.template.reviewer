@@ -2,201 +2,146 @@
  * Tests for s3Upload service
  */
 
-import { ERROR_MESSAGES } from '@/constants/errorMessages';
+import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
-// Create mock functions BEFORE imports - Jest hoisting requirement
-const mockS3Send = jest.fn();
-const mockS3Client = jest.fn().mockImplementation(() => ({
-  send: mockS3Send
-}));
-const mockPutObjectCommand = jest.fn().mockImplementation((input) => ({ input }));
-const mockIsAWSConfigured = jest.fn(() => true);
-
-// Mock AWS SDK - must be before service import
-jest.mock('@aws-sdk/client-s3', () => ({
-  S3Client: mockS3Client,
-  PutObjectCommand: mockPutObjectCommand
-}));
-
-// Mock AWS config - must be before service import
-jest.mock('@/config/aws.config', () => ({
-  s3Client: { send: mockS3Send },
-  S3_CONFIG: {
-    bucket: 'test-bucket',
-    region: 'us-east-1'
-  },
-  isAWSConfigured: mockIsAWSConfigured
-}));
+// Mock global fetch
+global.fetch = jest.fn()
 
 // Import service AFTER mocks
-import { uploadToS3, checkAWSConfiguration } from '@/features/data-validation/services/s3Upload.service';
+import { uploadToS3 } from '@/features/data-validation/services/s3Upload.service'
 
-const mockS3UploadSuccess = () => {
-  mockS3Send.mockResolvedValueOnce({
-    $metadata: {
-      httpStatusCode: 200,
-      requestId: 'mock-request-id'
-    },
-    ETag: '"mock-etag"'
-  });
-};
+const mockFetchSuccess = () => {
+  ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+    ok: true,
+    status: 200,
+    statusText: 'OK',
+  })
+}
 
-const mockS3UploadFailure = (errorMessage = 'S3 Upload failed') => {
-  mockS3Send.mockRejectedValueOnce(new Error(errorMessage));
-};
+const mockFetchFailure = (status = 500, statusText = 'Internal Server Error') => {
+  ;(global.fetch as jest.Mock).mockResolvedValueOnce({
+    ok: false,
+    status,
+    statusText,
+  })
+}
 
-const resetS3Mocks = () => {
-  mockS3Send.mockReset();
-};
+const mockFetchError = (errorMessage = 'Network error') => {
+  ;(global.fetch as jest.Mock).mockRejectedValueOnce(new Error(errorMessage))
+}
+
+const resetFetchMock = () => {
+  ;(global.fetch as jest.Mock).mockReset()
+}
 
 describe('s3Upload.service', () => {
   beforeEach(() => {
-    resetS3Mocks();
-    jest.clearAllMocks();
-    // Reset to default value
-    mockIsAWSConfigured.mockReturnValue(true);
-  });
+    resetFetchMock()
+    jest.clearAllMocks()
+  })
 
   describe('uploadToS3', () => {
-    const mockJsonData = JSON.stringify({ test: 'data' });
-    const mockFileName = 'test-file.json';
+    const mockJsonData = JSON.stringify({ test: 'data' })
+    const mockFileName = 'test-file.json'
+    const mockSignedUrl = 'https://s3.amazonaws.com/bucket/test-file.json?signature=xyz'
 
-    it('should successfully upload JSON to S3', async () => {
+    it('should successfully upload JSON to S3 using presigned URL', async () => {
       // Arrange
-      mockS3UploadSuccess();
+      mockFetchSuccess()
 
       // Act
-      const result = await uploadToS3(mockJsonData, mockFileName);
+      const result = await uploadToS3(mockJsonData, mockFileName, mockSignedUrl)
 
       // Assert
-      expect(result.success).toBe(true);
-      expect(result.fileUrl).toBe(
-        `https://test-bucket.s3.us-east-1.amazonaws.com/${mockFileName}`
-      );
-      expect(result.error).toBeUndefined();
-      expect(mockS3Send).toHaveBeenCalledTimes(1);
-    });
+      expect(result.success).toBe(true)
+      expect(result.fileName).toBe(mockFileName)
+      expect(result.fileSize).toBe(new Blob([mockJsonData]).size)
+      expect(result.error).toBeUndefined()
+      expect(global.fetch).toHaveBeenCalledTimes(1)
+    })
 
-    it('should send PutObjectCommand with correct parameters', async () => {
+    it('should call fetch with correct parameters', async () => {
       // Arrange
-      mockS3UploadSuccess();
+      mockFetchSuccess()
 
       // Act
-      await uploadToS3(mockJsonData, mockFileName);
+      await uploadToS3(mockJsonData, mockFileName, mockSignedUrl)
 
       // Assert
-      const command = mockS3Send.mock.calls[0][0];
-      expect(command.input).toMatchObject({
-        Bucket: 'test-bucket',
-        Key: mockFileName,
-        Body: mockJsonData,
-        ContentType: 'application/json'
-      });
-      expect(command.input.Metadata).toHaveProperty('uploadDate');
-      expect(command.input.Metadata).toHaveProperty('source', 'verifty-template-reviewer');
-    });
-
-    it('should return error when AWS is not configured', async () => {
-      // Arrange
-      mockIsAWSConfigured.mockReturnValueOnce(false);
-
-      // Act
-      const result = await uploadToS3(mockJsonData, mockFileName);
-
-      // Assert
-      expect(result.success).toBe(false);
-      expect(result.error).toBe(ERROR_MESSAGES.AWS_NOT_CONFIGURED);
-      expect(result.fileUrl).toBeUndefined();
-      expect(mockS3Send).not.toHaveBeenCalled();
-    });
-
-    it('should return error when S3 client is not initialized', async () => {
-      // Arrange
-      jest.resetModules();
-      jest.doMock('@/config/aws.config', () => ({
-        s3Client: null,
-        S3_CONFIG: {
-          bucket: 'test-bucket',
-          region: 'us-east-1'
+      expect(global.fetch).toHaveBeenCalledWith(mockSignedUrl, {
+        method: 'PUT',
+        body: mockJsonData,
+        headers: {
+          'Content-Type': 'application/json',
         },
-        isAWSConfigured: jest.fn(() => true)
-      }));
+      })
+    })
 
-      const { uploadToS3: uploadWithNoClient } = require('@/features/data-validation/services/s3Upload.service');
-
-      // Act
-      const result = await uploadWithNoClient(mockJsonData, mockFileName);
-
-      // Assert
-      expect(result.success).toBe(false);
-      expect(result.error).toBe(ERROR_MESSAGES.S3_CLIENT_NOT_INITIALIZED);
-    });
-
-    it('should handle S3 upload errors', async () => {
+    it('should return error when fetch fails with HTTP error', async () => {
       // Arrange
-      const errorMessage = 'Access Denied';
-      mockS3UploadFailure(errorMessage);
+      mockFetchFailure(403, 'Forbidden')
 
       // Act
-      const result = await uploadToS3(mockJsonData, mockFileName);
+      const result = await uploadToS3(mockJsonData, mockFileName, mockSignedUrl)
 
       // Assert
-      expect(result.success).toBe(false);
-      expect(result.error).toBe(errorMessage);
-      expect(result.fileUrl).toBeUndefined();
-    });
+      expect(result.success).toBe(false)
+      expect(result.error).toContain('403')
+      expect(result.error).toContain('Forbidden')
+      expect(result.fileName).toBeUndefined()
+      expect(result.fileSize).toBeUndefined()
+    })
+
+    it('should return error when network request fails', async () => {
+      // Arrange
+      const errorMessage = 'Network connection failed'
+      mockFetchError(errorMessage)
+
+      // Act
+      const result = await uploadToS3(mockJsonData, mockFileName, mockSignedUrl)
+
+      // Assert
+      expect(result.success).toBe(false)
+      expect(result.error).toBe(errorMessage)
+    })
 
     it('should handle unknown errors', async () => {
       // Arrange
-      mockS3Send.mockRejectedValueOnce('String error'); // Non-Error throw
+      ;(global.fetch as jest.Mock).mockRejectedValueOnce('String error') // Non-Error throw
 
       // Act
-      const result = await uploadToS3(mockJsonData, mockFileName);
+      const result = await uploadToS3(mockJsonData, mockFileName, mockSignedUrl)
 
       // Assert
-      expect(result.success).toBe(false);
-      expect(result.error).toBe(ERROR_MESSAGES.S3_UPLOAD_UNKNOWN_ERROR);
-    });
+      expect(result.success).toBe(false)
+      expect(result.error).toBe(ERROR_MESSAGES.PRESIGNED_URL_UPLOAD_ERROR)
+    })
+
+    it('should calculate file size correctly', async () => {
+      // Arrange
+      mockFetchSuccess()
+      const largeJsonData = JSON.stringify({ large: 'data'.repeat(1000) })
+
+      // Act
+      const result = await uploadToS3(largeJsonData, mockFileName, mockSignedUrl)
+
+      // Assert
+      expect(result.success).toBe(true)
+      expect(result.fileSize).toBe(new Blob([largeJsonData]).size)
+      expect(result.fileSize).toBeGreaterThan(0)
+    })
 
     it('should handle different file names correctly', async () => {
       // Arrange
-      mockS3UploadSuccess();
-      const customFileName = 'custom/path/file-2024.json';
+      mockFetchSuccess()
+      const customFileName = 'custom-file-2024.json'
 
       // Act
-      const result = await uploadToS3(mockJsonData, customFileName);
+      const result = await uploadToS3(mockJsonData, customFileName, mockSignedUrl)
 
       // Assert
-      expect(result.success).toBe(true);
-      expect(result.fileUrl).toBe(
-        `https://test-bucket.s3.us-east-1.amazonaws.com/${customFileName}`
-      );
-    });
-  });
-
-  describe('checkAWSConfiguration', () => {
-    it('should return configured true when AWS is properly configured', () => {
-      // Arrange
-      mockIsAWSConfigured.mockReturnValueOnce(true);
-
-      // Act
-      const result = checkAWSConfiguration();
-
-      // Assert
-      expect(result.configured).toBe(true);
-      expect(result.message).toBeUndefined();
-    });
-
-    it('should return configured false when AWS is not configured', () => {
-      // Arrange
-      mockIsAWSConfigured.mockReturnValueOnce(false);
-
-      // Act
-      const result = checkAWSConfiguration();
-
-      // Assert
-      expect(result.configured).toBe(false);
-      expect(result.message).toBe(ERROR_MESSAGES.AWS_NOT_CONFIGURED_CHECK);
-    });
-  });
-});
+      expect(result.success).toBe(true)
+      expect(result.fileName).toBe(customFileName)
+    })
+  })
+})

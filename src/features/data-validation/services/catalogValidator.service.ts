@@ -24,10 +24,7 @@ export type CatalogIndex = {
  */
 export function normalizeValue(v: unknown): string {
   if (v === null || v === undefined) return ''
-  return String(v)
-    .trim()
-    .toLowerCase()
-    .normalize('NFC') // Normaliza caracteres unicode (ej: è vs è compuesto)
+  return String(v).trim().toLowerCase().normalize('NFC') // Normaliza caracteres unicode (ej: è vs è compuesto)
 }
 
 /**
@@ -62,8 +59,12 @@ export function buildCatalogIndex(parsed: ParsedExcelData): CatalogIndex {
   for (const [key, list] of Object.entries(parsed.hazardCatalog)) {
     hazardRows[key] = list.map((entry) => ({
       descripcion_peligro: normalizeValue(entry.descripcion_peligro),
-      descripcion_especifica_peligro: normalizeValue(entry.descripcion_especifica_peligro),
-      consecuencia_efecto_posible: normalizeValue(entry.consecuencia_efecto_posible),
+      descripcion_especifica_peligro: normalizeValue(
+        entry.descripcion_especifica_peligro
+      ),
+      consecuencia_efecto_posible: normalizeValue(
+        entry.consecuencia_efecto_posible
+      ),
     }))
   }
 
@@ -130,8 +131,12 @@ export function validateHazardRow(
   }
 
   // Construir sets de valores válidos de las filas que coinciden con descripcion_peligro
-  const validDescEsp = new Set(matchingRows.map((r) => r.descripcion_especifica_peligro))
-  const validConsec = new Set(matchingRows.map((r) => r.consecuencia_efecto_posible))
+  const validDescEsp = new Set(
+    matchingRows.map((r) => r.descripcion_especifica_peligro)
+  )
+  const validConsec = new Set(
+    matchingRows.map((r) => r.consecuencia_efecto_posible)
+  )
 
   const invalidFields: string[] = []
 

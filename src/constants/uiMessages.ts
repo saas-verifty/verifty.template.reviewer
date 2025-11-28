@@ -38,16 +38,19 @@ export const UI_MESSAGES = {
   BULK_UPLOAD_TITLE: 'Carga masiva IPEVR',
   DATA_REVIEW_TITLE: 'Revisión de datos',
   DATA_REVIEW_SUBTITLE: 'Revisa y edita los datos antes de enviar',
-  UPLOAD_PAGE_SUBTITLE: 'Un espacio seguro para subir y validar tus archivos Excel de IPEVR',
+  UPLOAD_PAGE_SUBTITLE:
+    'Un espacio seguro para subir y validar tus archivos Excel de IPEVR',
 
   // Feature Disabled
   FEATURE_DISABLED_MESSAGE:
     'La funcionalidad de carga masiva está temporalmente deshabilitada. Por favor, contacta al administrador.',
 
   // Submit/Upload Messages
-  SUBMIT_SUCCESS_S3: '¡Datos enviados! En aproximadamente 30 minutos podrás ver los datos en la plataforma.',
+  SUBMIT_SUCCESS_S3:
+    '¡Datos enviados! En aproximadamente 30 minutos podrás ver los datos en la plataforma.',
   SUBMIT_SUCCESS_LOCAL: '¡JSON descargado correctamente! (Modo desarrollo)',
-  SUBMIT_ERROR_FALLBACK: 'Error al enviar los datos. Por favor, intenta nuevamente.',
+  SUBMIT_ERROR_FALLBACK:
+    'Error al enviar los datos. Por favor, intenta nuevamente.',
 } as const
 
 export type UIMessageKey = keyof typeof UI_MESSAGES

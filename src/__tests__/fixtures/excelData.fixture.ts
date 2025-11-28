@@ -3,7 +3,11 @@
  * Generated from: scripts/excel-analysis-results.json
  */
 
-import type { MainSheetRow, ParsedExcelData, HazardCatalogRow } from '@/features/data-validation/types/excel.types';
+import type {
+  MainSheetRow,
+  ParsedExcelData,
+  HazardCatalogRow,
+} from '@/features/data-validation/types/excel.types'
 
 /**
  * Valid Excel row with all required fields
@@ -25,8 +29,8 @@ export const validExcelRow: MainSheetRow = {
   controles_existentes_individuo: 'Capacitación en higiene postural',
   nivel_deficiencia_ND: '6',
   nivel_exposicion_NE: '3',
-  valor_consecuencia_NC: '25'
-};
+  valor_consecuencia_NC: '25',
+}
 
 /**
  * Multiple valid rows with different hazard types
@@ -43,13 +47,14 @@ export const validExcelRows: MainSheetRow[] = [
     peligro: 'Biológico',
     descripcion_peligro: 'Vírus',
     descripcion_especifica_peligro: '',
-    consecuencia_efecto_posible: 'Infecciones. Envenenamiento o efectos tóxicos',
+    consecuencia_efecto_posible:
+      'Infecciones. Envenenamiento o efectos tóxicos',
     controles_existentes_fuente: 'Silla ergonómica ajustable',
     controles_existentes_medio: 'Pausas activas programadas',
     controles_existentes_individuo: 'Capacitación en higiene postural',
     nivel_deficiencia_ND: '6',
     nivel_exposicion_NE: '3',
-    valor_consecuencia_NC: '25'
+    valor_consecuencia_NC: '25',
   },
   {
     proceso: 'Proceso 2',
@@ -68,7 +73,7 @@ export const validExcelRows: MainSheetRow[] = [
     controles_existentes_individuo: 'Control 2',
     nivel_deficiencia_ND: '10',
     nivel_exposicion_NE: '4',
-    valor_consecuencia_NC: '100'
+    valor_consecuencia_NC: '100',
   },
   {
     proceso: 'Proceso 3',
@@ -80,16 +85,18 @@ export const validExcelRows: MainSheetRow[] = [
     area_empresa: 'Obra de prueba contratante',
     peligro: 'Químico',
     descripcion_peligro: 'Polvos orgánicos',
-    descripcion_especifica_peligro: 'Naturales (polen, madera, algodòn, plumas, granos)',
-    consecuencia_efecto_posible: 'Irritación respiratoria, traqueítis, bronquitis, neumonitis, enfisema y\nedema pulmonar',
+    descripcion_especifica_peligro:
+      'Naturales (polen, madera, algodòn, plumas, granos)',
+    consecuencia_efecto_posible:
+      'Irritación respiratoria, traqueítis, bronquitis, neumonitis, enfisema y\nedema pulmonar',
     controles_existentes_fuente: 'Control 3',
     controles_existentes_medio: 'Control 3',
     controles_existentes_individuo: 'Control 3',
     nivel_deficiencia_ND: '6',
     nivel_exposicion_NE: '3',
-    valor_consecuencia_NC: '60'
-  }
-];
+    valor_consecuencia_NC: '60',
+  },
+]
 
 /**
  * Rows with duplicate hierarchy (Proceso 1 -> Actividad 1 -> Subactividad 1)
@@ -107,13 +114,14 @@ export const duplicateHierarchyRows: MainSheetRow[] = [
     peligro: 'Biológico',
     descripcion_peligro: 'Ricketsias',
     descripcion_especifica_peligro: 'Rayos alfa',
-    consecuencia_efecto_posible: 'Lesiones vasculíticas cutáneas, afectación hepática, renal o gastrointestinal',
+    consecuencia_efecto_posible:
+      'Lesiones vasculíticas cutáneas, afectación hepática, renal o gastrointestinal',
     controles_existentes_fuente: 'Control 1',
     controles_existentes_medio: 'Control 1',
     controles_existentes_individuo: 'Control 1',
     nivel_deficiencia_ND: '6',
     nivel_exposicion_NE: '3',
-    valor_consecuencia_NC: '60'
+    valor_consecuencia_NC: '60',
   },
   {
     proceso: 'Proceso 1',
@@ -132,7 +140,7 @@ export const duplicateHierarchyRows: MainSheetRow[] = [
     controles_existentes_individuo: 'Control 2',
     nivel_deficiencia_ND: '10',
     nivel_exposicion_NE: '4',
-    valor_consecuencia_NC: '100'
+    valor_consecuencia_NC: '100',
   },
   {
     proceso: 'Proceso 1',
@@ -144,16 +152,18 @@ export const duplicateHierarchyRows: MainSheetRow[] = [
     area_empresa: 'Obra de prueba contratante',
     peligro: 'Químico',
     descripcion_peligro: 'Polvos inorganicos',
-    descripcion_especifica_peligro: 'Silìceos (cemento, asbesto, marmol, cuarzo)',
-    consecuencia_efecto_posible: 'Neumoconiosis: Siderosis, aluminosis, beriliosis, etc. Alergia: asma profesional y alveolitis alérgica extrínseca',
+    descripcion_especifica_peligro:
+      'Silìceos (cemento, asbesto, marmol, cuarzo)',
+    consecuencia_efecto_posible:
+      'Neumoconiosis: Siderosis, aluminosis, beriliosis, etc. Alergia: asma profesional y alveolitis alérgica extrínseca',
     controles_existentes_fuente: 'Control 3',
     controles_existentes_medio: 'Control 3',
     controles_existentes_individuo: 'Control 3',
     nivel_deficiencia_ND: '6',
     nivel_exposicion_NE: '3',
-    valor_consecuencia_NC: '60'
-  }
-];
+    valor_consecuencia_NC: '60',
+  },
+]
 
 /**
  * Row with empty required fields
@@ -175,8 +185,8 @@ export const rowWithEmptyFields: MainSheetRow = {
   controles_existentes_individuo: '',
   nivel_deficiencia_ND: '6',
   nivel_exposicion_NE: '3',
-  valor_consecuencia_NC: '25'
-};
+  valor_consecuencia_NC: '25',
+}
 
 /**
  * Validation lists extracted from real Excel
@@ -189,7 +199,7 @@ export const validationLists = {
     'Directo, Contratistas y en Misión',
     'Contratistas',
     'Contratistas y en Misión',
-    'En Misión'
+    'En Misión',
   ],
   cargo: [
     'Auxiliar Administrativo',
@@ -199,7 +209,7 @@ export const validationLists = {
     'CTO',
     'Gerente',
     'Supervisor',
-    'Operario'
+    'Operario',
   ],
   areas_empresa: [
     'Administración',
@@ -208,12 +218,12 @@ export const validationLists = {
     'Obra de prueba contratante',
     'Producción',
     'Logística',
-    'Ventas'
+    'Ventas',
   ],
   nivel_deficiencia_ND: ['2', '6', '10'],
   nivel_exposicion_NE: ['1', '2', '3', '4'],
-  valor_consecuencia_NC: ['10', '25', '60', '100']
-};
+  valor_consecuencia_NC: ['10', '25', '60', '100'],
+}
 
 /**
  * Hazard catalog samples from real Excel
@@ -224,55 +234,61 @@ export const hazardCatalogs: Record<string, HazardCatalogRow[]> = {
       peligro: 'Biológico',
       descripcion_peligro: 'Vírus',
       descripcion_especifica_peligro: '',
-      consecuencia_efecto_posible: 'Infecciones. Envenenamiento o efectos tóxicos'
+      consecuencia_efecto_posible:
+        'Infecciones. Envenenamiento o efectos tóxicos',
     },
     {
       peligro: 'Biológico',
       descripcion_peligro: 'Ricketsias',
       descripcion_especifica_peligro: 'Rayos alfa',
-      consecuencia_efecto_posible: 'Lesiones vasculíticas cutáneas, afectación hepática, renal o gastrointestinal'
-    }
+      consecuencia_efecto_posible:
+        'Lesiones vasculíticas cutáneas, afectación hepática, renal o gastrointestinal',
+    },
   ],
   Físico: [
     {
       peligro: 'Físico',
       descripcion_peligro: 'Ruido',
       descripcion_especifica_peligro: 'Impacto',
-      consecuencia_efecto_posible: 'Disconfor, Dolor de cabeza, Hipoacucia'
+      consecuencia_efecto_posible: 'Disconfor, Dolor de cabeza, Hipoacucia',
     },
     {
       peligro: 'Físico',
       descripcion_peligro: 'Radiación ionizante',
       descripcion_especifica_peligro: 'Rayos x',
-      consecuencia_efecto_posible: 'Cáncer, mutaciones genéticas'
-    }
+      consecuencia_efecto_posible: 'Cáncer, mutaciones genéticas',
+    },
   ],
   Químico: [
     {
       peligro: 'Químico',
       descripcion_peligro: 'Polvos orgánicos',
-      descripcion_especifica_peligro: 'Naturales (polen, madera, algodòn, plumas, granos)',
-      consecuencia_efecto_posible: 'Irritación respiratoria, traqueítis, bronquitis, neumonitis, enfisema y\nedema pulmonar'
+      descripcion_especifica_peligro:
+        'Naturales (polen, madera, algodòn, plumas, granos)',
+      consecuencia_efecto_posible:
+        'Irritación respiratoria, traqueítis, bronquitis, neumonitis, enfisema y\nedema pulmonar',
     },
     {
       peligro: 'Químico',
       descripcion_peligro: 'Polvos inorganicos',
-      descripcion_especifica_peligro: 'Silìceos (cemento, asbesto, marmol, cuarzo)',
-      consecuencia_efecto_posible: 'Neumoconiosis: Siderosis, aluminosis, beriliosis, etc. Alergia: asma profesional y alveolitis alérgica extrínseca'
-    }
+      descripcion_especifica_peligro:
+        'Silìceos (cemento, asbesto, marmol, cuarzo)',
+      consecuencia_efecto_posible:
+        'Neumoconiosis: Siderosis, aluminosis, beriliosis, etc. Alergia: asma profesional y alveolitis alérgica extrínseca',
+    },
   ],
   Biomecánico: [
     {
       peligro: 'Biomecánico',
       descripcion_peligro: 'Postura',
       descripcion_especifica_peligro: 'Prolongada mantenida',
-      consecuencia_efecto_posible: 'Dolor lumbar, fatiga muscular'
-    }
+      consecuencia_efecto_posible: 'Dolor lumbar, fatiga muscular',
+    },
   ],
   Psicosocial: [],
   'Condiciones de Seguridad': [],
-  'Fenómenos naturales': []
-};
+  'Fenómenos naturales': [],
+}
 
 /**
  * Complete parsed Excel data structure
@@ -280,13 +296,39 @@ export const hazardCatalogs: Record<string, HazardCatalogRow[]> = {
 export const mockParsedExcelData: ParsedExcelData = {
   mainSheet: {
     name: 'Plantilla de Carga',
-    headers: ['proceso', 'actividad', 'subactividad', 'frecuencia', 'personal_involucrado', 'cargo', 'area_empresa', 'peligro', 'descripcion_peligro', 'descripcion_especifica_peligro', 'consecuencia_efecto_posible', 'controles_existentes_fuente', 'controles_existentes_medio', 'controles_existentes_individuo', 'nivel_deficiencia_ND', 'nivel_exposicion_NE', 'valor_consecuencia_NC'],
-    data: validExcelRows
+    headers: [
+      'proceso',
+      'actividad',
+      'subactividad',
+      'frecuencia',
+      'personal_involucrado',
+      'cargo',
+      'area_empresa',
+      'peligro',
+      'descripcion_peligro',
+      'descripcion_especifica_peligro',
+      'consecuencia_efecto_posible',
+      'controles_existentes_fuente',
+      'controles_existentes_medio',
+      'controles_existentes_individuo',
+      'nivel_deficiencia_ND',
+      'nivel_exposicion_NE',
+      'valor_consecuencia_NC',
+    ],
+    data: validExcelRows,
   },
   validationSheet: {
     name: 'Listas de Validacion',
-    headers: ['frecuencia', 'personal_involucrado', 'cargo', 'areas_empresa', 'nivel_deficiencia_ND', 'nivel_exposicion_NE', 'valor_consecuencia_NC'],
-    data: []
+    headers: [
+      'frecuencia',
+      'personal_involucrado',
+      'cargo',
+      'areas_empresa',
+      'nivel_deficiencia_ND',
+      'nivel_exposicion_NE',
+      'valor_consecuencia_NC',
+    ],
+    data: [],
   },
   hazardCatalog: {
     biologico: hazardCatalogs.Biológico,
@@ -295,9 +337,9 @@ export const mockParsedExcelData: ParsedExcelData = {
     psicosocial: hazardCatalogs.Psicosocial || [],
     biomecanico: hazardCatalogs.Biomecánico,
     condiciones_seguridad: hazardCatalogs['Condiciones de Seguridad'] || [],
-    fenomenos_naturales: hazardCatalogs['Fenómenos naturales'] || []
-  }
-};
+    fenomenos_naturales: hazardCatalogs['Fenómenos naturales'] || [],
+  },
+}
 
 /**
  * Error scenarios based on real Excel files
@@ -306,22 +348,22 @@ export const errorScenarios = {
   missingMainSheet: {
     error: 'MISSING_SHEET',
     sheet: 'Plantilla de Carga',
-    description: 'Excel sin hoja principal'
+    description: 'Excel sin hoja principal',
   },
   missingValidationSheet: {
     error: 'MISSING_SHEET',
     sheet: 'Listas de Validacion',
-    description: 'Excel sin lista de validación'
+    description: 'Excel sin lista de validación',
   },
   missingCatalog: {
     error: 'MISSING_CATALOG',
     catalog: 'Biológico',
-    description: 'Excel sin catálogo de peligros Biológico'
+    description: 'Excel sin catálogo de peligros Biológico',
   },
   emptyRequiredField: {
     error: 'EMPTY_REQUIRED_FIELD',
     field: 'proceso',
     count: 1,
-    description: 'Campo requerido vacío'
-  }
-};
+    description: 'Campo requerido vacío',
+  },
+}

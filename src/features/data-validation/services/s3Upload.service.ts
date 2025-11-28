@@ -1,80 +1,57 @@
-import { PutObjectCommand } from '@aws-sdk/client-s3'
-import { s3Client, S3_CONFIG, isAWSConfigured } from '../../../config/aws.config'
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 export interface S3UploadResult {
   success: boolean
   fileUrl?: string
+  fileName?: string
+  fileSize?: number
   error?: string
 }
 
 /**
- * Sube un archivo JSON a S3
+ * Sube un archivo JSON a S3 usando una URL pre-firmada
  * @param jsonData - El contenido JSON como string
  * @param fileName - Nombre del archivo a subir
+ * @param signedUrl - URL pre-firmada obtenida del endpoint
  * @returns Resultado de la operación
  */
 export async function uploadToS3(
   jsonData: string,
-  fileName: string
+  fileName: string,
+  signedUrl: string
 ): Promise<S3UploadResult> {
-  // Verificar configuración de AWS
-  if (!isAWSConfigured()) {
-    return {
-      success: false,
-      error: ERROR_MESSAGES.AWS_NOT_CONFIGURED,
-    }
-  }
-
-  if (!s3Client) {
-    return {
-      success: false,
-      error: ERROR_MESSAGES.S3_CLIENT_NOT_INITIALIZED,
-    }
-  }
-
   try {
-    const command = new PutObjectCommand({
-      Bucket: S3_CONFIG.bucket,
-      Key: fileName,
-      Body: jsonData,
-      ContentType: 'application/json',
-      Metadata: {
-        uploadDate: new Date().toISOString(),
-        source: 'verifty-template-reviewer',
+    // Calcular tamaño del archivo en bytes
+    const fileSize = new Blob([jsonData]).size
+
+    // Subir usando la URL pre-firmada con PUT
+    const response = await fetch(signedUrl, {
+      method: 'PUT',
+      body: jsonData,
+      headers: {
+        'Content-Type': 'application/json',
       },
     })
 
-    await s3Client.send(command)
-
-    // Construir URL del archivo (asumiendo bucket público o con acceso configurado)
-    const fileUrl = `https://${S3_CONFIG.bucket}.s3.${S3_CONFIG.region}.amazonaws.com/${fileName}`
+    if (!response.ok) {
+      throw new Error(
+        `Error HTTP: ${response.status} - ${response.statusText}`
+      )
+    }
 
     return {
       success: true,
-      fileUrl,
+      fileName: fileName,
+      fileSize,
     }
   } catch (error) {
     console.error('Error al subir a S3:', error)
     return {
       success: false,
-      error: error instanceof Error ? error.message : ERROR_MESSAGES.S3_UPLOAD_UNKNOWN_ERROR,
+      error:
+        error instanceof Error
+          ? error.message
+          : ERROR_MESSAGES.PRESIGNED_URL_UPLOAD_ERROR,
     }
-  }
-}
-
-/**
- * Verifica que AWS esté configurado
- */
-export function checkAWSConfiguration(): { configured: boolean; message?: string } {
-  if (!isAWSConfigured()) {
-    return {
-      configured: false,
-      message: ERROR_MESSAGES.AWS_NOT_CONFIGURED_CHECK,
-    }
-  }
-
-  return {
-    configured: true,
   }
 }
